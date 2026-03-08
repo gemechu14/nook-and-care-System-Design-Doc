@@ -68,17 +68,6 @@ As an **administrator**, I want to:
 - Manage **subscription plans**
 - Track platform analytics and performance
 
-## SaaS Platform Owner
-
-As the **software provider**, I want:
-
-- Multiple providers and travelers using the same platform
-- Data separation between different user types
-- Ability to scale to thousands of properties and users
-- Secure payment processing
-- Comprehensive reporting and analytics
-
----
 
 # Industry Workflow
 
