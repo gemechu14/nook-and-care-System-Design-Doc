@@ -1,0 +1,1048 @@
+---
+title: "Nook and Care – System Design Documentation"
+format:
+  html:
+    toc: true
+    code-fold: false
+---
+
+# Project Overview
+
+This document describes the architecture for **Nook and Care**, a property rental and accommodation booking platform.
+
+The goal of the system is to help:
+
+- **Property owners** list and manage their rental properties
+- **Travelers** discover and book accommodations
+- **Platform administrators** manage the marketplace
+- Support **multi-tenant operations** for scalability
+
+The system allows users to:
+
+1. Browse and search for properties
+2. View detailed property listings with images, amenities, and services
+3. Book accommodations with flexible scheduling
+4. Leave reviews and ratings
+5. Manage subscriptions and payments
+6. Track leads and conversions
+
+The design is built to support **many property providers and travelers using the same platform**.
+
+---
+
+# User Stories
+
+## Property Provider / Host
+
+As a **property provider**, I want to:
+
+- Create and manage **property listings**
+- Upload **property images**
+- Configure **amenities, services, and equipment** for my properties
+- Set **house rules** for guests
+- Manage **bookings and availability**
+- View **reviews and ratings** from guests
+- Track **revenue and payments**
+- Manage **subscriptions** for premium features
+
+## Traveler / Guest
+
+As a **traveler**, I want to:
+
+- Search and filter properties by location, amenities, and services
+- View detailed property information with images
+- Book accommodations for specific dates
+- Save **favorite properties** for later
+- Leave **reviews and ratings** after stays
+- Manage my **bookings and reservations**
+- Contact property providers through **leads**
+
+## Platform Administrator
+
+As an **administrator**, I want to:
+
+- Manage **user accounts and providers**
+- Verify property listings and provider credentials
+- Monitor **bookings and transactions**
+- Handle **reports and disputes**
+- Manage **subscription plans**
+- Track platform analytics and performance
+
+## SaaS Platform Owner
+
+As the **software provider**, I want:
+
+- Multiple providers and travelers using the same platform
+- Data separation between different user types
+- Ability to scale to thousands of properties and users
+- Secure payment processing
+- Comprehensive reporting and analytics
+
+---
+
+# Industry Workflow
+
+Typical workflow for property rental platforms:
+
+1. **Provider Registration**: Property owner creates account and verifies identity
+2. **Listing Creation**: Provider adds property details, images, amenities, and services
+3. **Availability Setup**: Provider sets availability calendar and pricing
+4. **Guest Search**: Traveler searches for properties matching their criteria
+5. **Booking Process**: Guest selects property, reviews details, and makes booking
+6. **Payment Processing**: System processes payment and confirms booking
+7. **Stay Experience**: Guest stays at property
+8. **Review Process**: Guest leaves review and rating after stay
+9. **Provider Response**: Provider can respond to reviews
+
+---
+
+# System Architecture
+
+The system is designed with a **multi-tenant SaaS structure**.
+
+Key components:
+
+- Users (Guests and Providers)
+- Property Listings
+- Bookings and Reservations
+- Reviews and Ratings
+- Payments and Subscriptions
+- Leads and Communications
+- Verifications and Reports
+
+---
+
+# Entity Relationship Diagram
+
+This is the **simple relationship view** of the system.
+
+```{mermaid}
+erDiagram
+
+USERS ||--o{ PROVIDERS : can_be
+USERS ||--o{ BOOKINGS : makes
+USERS ||--o{ REVIEWS : writes
+USERS ||--o{ FAVORITES : has
+USERS ||--o{ LEADS : creates
+
+PROVIDERS ||--o{ LISTINGS : owns
+PROVIDERS ||--o{ SUBSCRIPTIONS : has
+
+LISTINGS ||--o{ LISTING_IMAGES : has
+LISTINGS ||--o{ LISTING_AMENITIES : has
+LISTINGS ||--o{ LISTING_SERVICES : has
+LISTINGS ||--o{ LISTING_EQUIPMENT : has
+LISTINGS ||--o{ LISTING_LANGUAGES : supports
+LISTINGS ||--o{ HOUSE_RULES : has
+LISTINGS ||--o{ TOURS : offers
+LISTINGS ||--o{ BOOKINGS : receives
+LISTINGS ||--o{ REVIEWS : receives
+LISTINGS ||--o{ FAVORITES : in
+
+AMENITIES ||--o{ LISTING_AMENITIES : used_in
+SERVICES ||--o{ LISTING_SERVICES : used_in
+EQUIPMENT ||--o{ LISTING_EQUIPMENT : used_in
+LANGUAGES ||--o{ LISTING_LANGUAGES : used_in
+
+BOOKINGS ||--o{ PAYMENTS : requires
+BOOKINGS ||--o{ REVIEWS : generates
+
+USERS ||--o{ VERIFICATIONS : has
+USERS ||--o{ REPORTS : files
+```
+
+---
+
+# Detailed ER Diagram With Fields
+
+This is the **detailed field-level ER diagram** you can use when drawing the system in Draw.io.
+
+```{mermaid}
+erDiagram
+  USERS ||--o{ PROVIDERS : can_be
+  USERS ||--o{ BOOKINGS : makes
+  USERS ||--o{ REVIEWS : writes
+  USERS ||--o{ FAVORITES : has
+  USERS ||--o{ LEADS : creates
+  PROVIDERS ||--o{ LISTINGS : owns
+  PROVIDERS ||--o{ SUBSCRIPTIONS : has
+  LISTINGS ||--o{ LISTING_IMAGES : has
+  LISTINGS ||--o{ LISTING_AMENITIES : has
+  LISTINGS ||--o{ LISTING_SERVICES : has
+  LISTINGS ||--o{ LISTING_EQUIPMENT : has
+  LISTINGS ||--o{ LISTING_LANGUAGES : supports
+  LISTINGS ||--o{ HOUSE_RULES : has
+  LISTINGS ||--o{ TOURS : offers
+  LISTINGS ||--o{ BOOKINGS : receives
+  LISTINGS ||--o{ REVIEWS : receives
+  LISTINGS ||--o{ FAVORITES : in
+  AMENITIES ||--o{ LISTING_AMENITIES : used_in
+  SERVICES ||--o{ LISTING_SERVICES : used_in
+  EQUIPMENT ||--o{ LISTING_EQUIPMENT : used_in
+  LANGUAGES ||--o{ LISTING_LANGUAGES : used_in
+  BOOKINGS ||--o{ PAYMENTS : requires
+  BOOKINGS ||--o{ REVIEWS : generates
+  USERS ||--o{ VERIFICATIONS : has
+  USERS ||--o{ REPORTS : files
+
+  USERS {
+    uuid id PK
+    string email
+    string password_hash
+    string full_name
+    string phone
+    string role
+    boolean is_active
+    datetime email_verified_at
+    datetime created_at
+    datetime updated_at
+  }
+
+  PROVIDERS {
+    uuid id PK
+    uuid user_id FK
+    string business_name
+    string business_type
+    string tax_id
+    string address
+    string city
+    string country
+    string verification_status
+    datetime verified_at
+    datetime created_at
+    datetime updated_at
+  }
+
+  LISTINGS {
+    uuid id PK
+    uuid provider_id FK
+    string title
+    string description
+    string property_type
+    string address
+    string city
+    string state
+    string country
+    string postal_code
+    decimal latitude
+    decimal longitude
+    integer max_guests
+    integer bedrooms
+    integer bathrooms
+    decimal price_per_night
+    string currency
+    string status
+    datetime created_at
+    datetime updated_at
+  }
+
+  LISTING_IMAGES {
+    uuid id PK
+    uuid listing_id FK
+    string image_url
+    integer display_order
+    boolean is_primary
+    datetime created_at
+  }
+
+  AMENITIES {
+    uuid id PK
+    string name
+    string category
+    string icon
+    datetime created_at
+  }
+
+  LISTING_AMENITIES {
+    uuid id PK
+    uuid listing_id FK
+    uuid amenity_id FK
+    datetime created_at
+  }
+
+  SERVICES {
+    uuid id PK
+    string name
+    string description
+    string category
+    decimal base_price
+    datetime created_at
+  }
+
+  LISTING_SERVICES {
+    uuid id PK
+    uuid listing_id FK
+    uuid service_id FK
+    decimal price
+    boolean is_included
+    datetime created_at
+  }
+
+  EQUIPMENT {
+    uuid id PK
+    string name
+    string category
+    string description
+    datetime created_at
+  }
+
+  LISTING_EQUIPMENT {
+    uuid id PK
+    uuid listing_id FK
+    uuid equipment_id FK
+    integer quantity
+    datetime created_at
+  }
+
+  LANGUAGES {
+    uuid id PK
+    string code
+    string name
+    datetime created_at
+  }
+
+  LISTING_LANGUAGES {
+    uuid id PK
+    uuid listing_id FK
+    uuid language_id FK
+    datetime created_at
+  }
+
+  HOUSE_RULES {
+    uuid id PK
+    uuid listing_id FK
+    string rule_text
+    integer display_order
+    datetime created_at
+  }
+
+  TOURS {
+    uuid id PK
+    uuid listing_id FK
+    string tour_type
+    datetime scheduled_at
+    string status
+    uuid booked_by_user_id FK
+    datetime created_at
+    datetime updated_at
+  }
+
+  BOOKINGS {
+    uuid id PK
+    uuid listing_id FK
+    uuid user_id FK
+    date check_in_date
+    date check_out_date
+    integer number_of_guests
+    decimal total_price
+    string currency
+    string status
+    string payment_status
+    datetime created_at
+    datetime updated_at
+  }
+
+  REVIEWS {
+    uuid id PK
+    uuid booking_id FK
+    uuid listing_id FK
+    uuid user_id FK
+    integer rating
+    string comment
+    string response_from_provider
+    datetime created_at
+    datetime updated_at
+  }
+
+  LEADS {
+    uuid id PK
+    uuid listing_id FK
+    uuid user_id FK
+    string message
+    string status
+    datetime created_at
+    datetime updated_at
+  }
+
+  FAVORITES {
+    uuid id PK
+    uuid user_id FK
+    uuid listing_id FK
+    datetime created_at
+  }
+
+  SUBSCRIPTIONS {
+    uuid id PK
+    uuid provider_id FK
+    string plan_type
+    decimal price
+    string billing_cycle
+    date start_date
+    date end_date
+    string status
+    datetime created_at
+    datetime updated_at
+  }
+
+  PAYMENTS {
+    uuid id PK
+    uuid booking_id FK
+    decimal amount
+    string currency
+    string payment_method
+    string transaction_id
+    string status
+    datetime processed_at
+    datetime created_at
+  }
+
+  VERIFICATIONS {
+    uuid id PK
+    uuid user_id FK
+    string verification_type
+    string document_url
+    string status
+    datetime verified_at
+    datetime created_at
+    datetime updated_at
+  }
+
+  REPORTS {
+    uuid id PK
+    uuid reported_by_user_id FK
+    uuid reported_user_id FK
+    uuid listing_id FK
+    string report_type
+    string description
+    string status
+    datetime created_at
+    datetime updated_at
+  }
+```
+
+---
+
+# Table Descriptions
+
+## 1) users
+
+**Purpose:** Core user accounts for both travelers and property providers.
+
+### Fields
+
+- `id` (UUID, PK)
+- `email` (VARCHAR(255), UNIQUE)
+- `password_hash` (TEXT)
+- `full_name` (VARCHAR(150))
+- `phone` (VARCHAR(30), NULL)
+- `role` (VARCHAR(20)) — GUEST | PROVIDER | ADMIN
+- `is_active` (BOOLEAN)
+- `email_verified_at` (TIMESTAMP, NULL)
+- `created_at` (TIMESTAMP)
+- `updated_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `users 1—* providers` — A user can become a provider
+- `users 1—* bookings` — Users make bookings
+- `users 1—* reviews` — Users write reviews
+- `users 1—* favorites` — Users save favorite listings
+- `users 1—* leads` — Users create inquiry leads
+- `users 1—* verifications` — Users can be verified
+- `users 1—* reports` — Users can file reports
+
+This table is the foundation for authentication and user management.
+
+---
+
+## 2) providers
+
+**Purpose:** Property owners and hosts who list accommodations.
+
+### Fields
+
+- `id` (UUID, PK)
+- `user_id` (UUID, FK → users.id)
+- `business_name` (VARCHAR(150))
+- `business_type` (VARCHAR(50))
+- `tax_id` (VARCHAR(50), NULL)
+- `address` (TEXT)
+- `city` (VARCHAR(100))
+- `country` (VARCHAR(100))
+- `verification_status` (VARCHAR(30)) — PENDING | VERIFIED | REJECTED
+- `verified_at` (TIMESTAMP, NULL)
+- `created_at` (TIMESTAMP)
+- `updated_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `users 1—1 providers` — One user account can have one provider profile
+- `providers 1—* listings` — Providers own multiple listings
+- `providers 1—* subscriptions` — Providers can have subscription plans
+
+This table stores business information for property providers.
+
+---
+
+## 3) listings
+
+**Purpose:** Property accommodations available for booking.
+
+### Fields
+
+- `id` (UUID, PK)
+- `provider_id` (UUID, FK → providers.id)
+- `title` (VARCHAR(200))
+- `description` (TEXT)
+- `property_type` (VARCHAR(50)) — APARTMENT | HOUSE | VILLA | CONDO | etc.
+- `address` (TEXT)
+- `city` (VARCHAR(100))
+- `state` (VARCHAR(100), NULL)
+- `country` (VARCHAR(100))
+- `postal_code` (VARCHAR(20), NULL)
+- `latitude` (DECIMAL(10,8))
+- `longitude` (DECIMAL(11,8))
+- `max_guests` (INTEGER)
+- `bedrooms` (INTEGER)
+- `bathrooms` (INTEGER)
+- `price_per_night` (DECIMAL(10,2))
+- `currency` (VARCHAR(10))
+- `status` (VARCHAR(30)) — ACTIVE | INACTIVE | PENDING | SUSPENDED
+- `created_at` (TIMESTAMP)
+- `updated_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `providers 1—* listings` — One provider can have many properties
+- `listings 1—* listing_images` — Each listing has multiple images
+- `listings 1—* listing_amenities` — Listings have amenities
+- `listings 1—* listing_services` — Listings offer services
+- `listings 1—* listing_equipment` — Listings have equipment
+- `listings 1—* listing_languages` — Listings support languages
+- `listings 1—* house_rules` — Listings have house rules
+- `listings 1—* tours` — Listings can offer tours
+- `listings 1—* bookings` — Listings receive bookings
+- `listings 1—* reviews` — Listings receive reviews
+- `listings 1—* favorites` — Listings can be favorited
+- `listings 1—* leads` — Listings receive inquiry leads
+
+This is the core entity representing available properties.
+
+---
+
+## 4) listing_images
+
+**Purpose:** Images associated with property listings.
+
+### Fields
+
+- `id` (UUID, PK)
+- `listing_id` (UUID, FK → listings.id)
+- `image_url` (TEXT)
+- `display_order` (INTEGER)
+- `is_primary` (BOOLEAN)
+- `created_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `listings 1—* listing_images` — Each listing has multiple images
+- One image should be marked as primary for display purposes
+- Display order allows providers to organize images
+
+---
+
+## 5) amenities
+
+**Purpose:** Master catalog of available amenities (pool, WiFi, parking, etc.).
+
+### Fields
+
+- `id` (UUID, PK)
+- `name` (VARCHAR(100))
+- `category` (VARCHAR(50)) — BASIC | PREMIUM | SAFETY | ACCESSIBILITY
+- `icon` (VARCHAR(100), NULL)
+- `created_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `amenities 1—* listing_amenities` — Amenities are used across many listings
+- This is a master catalog to ensure consistency
+
+---
+
+## 6) listing_amenities
+
+**Purpose:** Junction table linking listings to their amenities.
+
+### Fields
+
+- `id` (UUID, PK)
+- `listing_id` (UUID, FK → listings.id)
+- `amenity_id` (UUID, FK → amenities.id)
+- `created_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `listings *—* amenities` — Many-to-many relationship
+- A listing can have many amenities, and an amenity can be in many listings
+
+**Suggested constraint:**
+
+- Unique (`listing_id`, `amenity_id`) to prevent duplicates
+
+---
+
+## 7) services
+
+**Purpose:** Master catalog of services that can be offered (cleaning, concierge, etc.).
+
+### Fields
+
+- `id` (UUID, PK)
+- `name` (VARCHAR(100))
+- `description` (TEXT, NULL)
+- `category` (VARCHAR(50))
+- `base_price` (DECIMAL(10,2), NULL)
+- `created_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `services 1—* listing_services` — Services are offered by multiple listings
+- Base price provides a default, but listing_services can override
+
+---
+
+## 8) listing_services
+
+**Purpose:** Services offered by specific listings with custom pricing.
+
+### Fields
+
+- `id` (UUID, PK)
+- `listing_id` (UUID, FK → listings.id)
+- `service_id` (UUID, FK → services.id)
+- `price` (DECIMAL(10,2))
+- `is_included` (BOOLEAN) — Whether service is included in base price
+- `created_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `listings *—* services` — Many-to-many with pricing
+- Allows each listing to set custom prices for services
+
+---
+
+## 9) equipment
+
+**Purpose:** Master catalog of equipment available (kitchen appliances, electronics, etc.).
+
+### Fields
+
+- `id` (UUID, PK)
+- `name` (VARCHAR(100))
+- `category` (VARCHAR(50))
+- `description` (TEXT, NULL)
+- `created_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `equipment 1—* listing_equipment` — Equipment is used across listings
+- Master catalog ensures consistency
+
+---
+
+## 10) listing_equipment
+
+**Purpose:** Equipment available at specific listings with quantities.
+
+### Fields
+
+- `id` (UUID, PK)
+- `listing_id` (UUID, FK → listings.id)
+- `equipment_id` (UUID, FK → equipment.id)
+- `quantity` (INTEGER)
+- `created_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `listings *—* equipment` — Many-to-many with quantity tracking
+- Tracks how many of each equipment item is available
+
+---
+
+## 11) languages
+
+**Purpose:** Master catalog of languages supported.
+
+### Fields
+
+- `id` (UUID, PK)
+- `code` (VARCHAR(10)) — ISO language code (en, es, fr, etc.)
+- `name` (VARCHAR(100))
+- `created_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `languages 1—* listing_languages` — Languages are used across listings
+- Standard language codes for consistency
+
+---
+
+## 12) listing_languages
+
+**Purpose:** Languages supported by specific listings.
+
+### Fields
+
+- `id` (UUID, PK)
+- `listing_id` (UUID, FK → listings.id)
+- `language_id` (UUID, FK → languages.id)
+- `created_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `listings *—* languages` — Many-to-many relationship
+- Indicates which languages the provider can communicate in
+
+---
+
+## 13) house_rules
+
+**Purpose:** Rules and policies for specific listings.
+
+### Fields
+
+- `id` (UUID, PK)
+- `listing_id` (UUID, FK → listings.id)
+- `rule_text` (TEXT)
+- `display_order` (INTEGER)
+- `created_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `listings 1—* house_rules` — Each listing can have multiple rules
+- Display order allows providers to prioritize rules
+
+---
+
+## 14) tours
+
+**Purpose:** Virtual or in-person tours scheduled for listings.
+
+### Fields
+
+- `id` (UUID, PK)
+- `listing_id` (UUID, FK → listings.id)
+- `tour_type` (VARCHAR(50)) — VIRTUAL | IN_PERSON
+- `scheduled_at` (TIMESTAMP)
+- `status` (VARCHAR(30)) — SCHEDULED | COMPLETED | CANCELLED
+- `booked_by_user_id` (UUID, FK → users.id, NULL)
+- `created_at` (TIMESTAMP)
+- `updated_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `listings 1—* tours` — Listings can offer multiple tours
+- `users 1—* tours` — Users can book tours
+- Allows guests to schedule property viewings before booking
+
+---
+
+## 15) bookings
+
+**Purpose:** Reservations made by guests for listings.
+
+### Fields
+
+- `id` (UUID, PK)
+- `listing_id` (UUID, FK → listings.id)
+- `user_id` (UUID, FK → users.id)
+- `check_in_date` (DATE)
+- `check_out_date` (DATE)
+- `number_of_guests` (INTEGER)
+- `total_price` (DECIMAL(10,2))
+- `currency` (VARCHAR(10))
+- `status` (VARCHAR(30)) — PENDING | CONFIRMED | CANCELLED | COMPLETED
+- `payment_status` (VARCHAR(30)) — PENDING | PAID | REFUNDED
+- `created_at` (TIMESTAMP)
+- `updated_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `listings 1—* bookings` — Listings receive multiple bookings
+- `users 1—* bookings` — Users make multiple bookings
+- `bookings 1—1 payments` — Each booking requires payment
+- `bookings 1—* reviews` — Bookings can generate reviews
+
+This is the core transaction entity.
+
+---
+
+## 16) reviews
+
+**Purpose:** Reviews and ratings left by guests after their stay.
+
+### Fields
+
+- `id` (UUID, PK)
+- `booking_id` (UUID, FK → bookings.id)
+- `listing_id` (UUID, FK → listings.id)
+- `user_id` (UUID, FK → users.id)
+- `rating` (INTEGER) — 1 to 5
+- `comment` (TEXT, NULL)
+- `response_from_provider` (TEXT, NULL)
+- `created_at` (TIMESTAMP)
+- `updated_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `bookings 1—1 reviews` — Each booking can have one review
+- `listings 1—* reviews` — Listings accumulate reviews
+- `users 1—* reviews` — Users write multiple reviews
+- Providers can respond to reviews
+
+---
+
+## 17) leads
+
+**Purpose:** Inquiry messages from potential guests to providers.
+
+### Fields
+
+- `id` (UUID, PK)
+- `listing_id` (UUID, FK → listings.id)
+- `user_id` (UUID, FK → users.id)
+- `message` (TEXT)
+- `status` (VARCHAR(30)) — NEW | READ | RESPONDED | CLOSED
+- `created_at` (TIMESTAMP)
+- `updated_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `listings 1—* leads` — Listings receive inquiry leads
+- `users 1—* leads` — Users create leads
+- Allows communication before booking
+
+---
+
+## 18) favorites
+
+**Purpose:** Saved listings that users want to revisit.
+
+### Fields
+
+- `id` (UUID, PK)
+- `user_id` (UUID, FK → users.id)
+- `listing_id` (UUID, FK → listings.id)
+- `created_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `users 1—* favorites` — Users can favorite multiple listings
+- `listings 1—* favorites` — Listings can be favorited by multiple users
+- Many-to-many relationship
+
+**Suggested constraint:**
+
+- Unique (`user_id`, `listing_id`) to prevent duplicate favorites
+
+---
+
+## 19) subscriptions
+
+**Purpose:** Subscription plans for providers (premium listings, featured placement, etc.).
+
+### Fields
+
+- `id` (UUID, PK)
+- `provider_id` (UUID, FK → providers.id)
+- `plan_type` (VARCHAR(50)) — BASIC | PREMIUM | ENTERPRISE
+- `price` (DECIMAL(10,2))
+- `billing_cycle` (VARCHAR(20)) — MONTHLY | YEARLY
+- `start_date` (DATE)
+- `end_date` (DATE)
+- `status` (VARCHAR(30)) — ACTIVE | EXPIRED | CANCELLED
+- `created_at` (TIMESTAMP)
+- `updated_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `providers 1—* subscriptions` — Providers can have subscription history
+- Enables recurring revenue model
+
+---
+
+## 20) payments
+
+**Purpose:** Payment transactions for bookings.
+
+### Fields
+
+- `id` (UUID, PK)
+- `booking_id` (UUID, FK → bookings.id)
+- `amount` (DECIMAL(10,2))
+- `currency` (VARCHAR(10))
+- `payment_method` (VARCHAR(50)) — CREDIT_CARD | PAYPAL | BANK_TRANSFER
+- `transaction_id` (VARCHAR(255), NULL)
+- `status` (VARCHAR(30)) — PENDING | COMPLETED | FAILED | REFUNDED
+- `processed_at` (TIMESTAMP, NULL)
+- `created_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `bookings 1—1 payments` — Each booking has one payment
+- Tracks payment processing and status
+
+---
+
+## 21) verifications
+
+**Purpose:** Identity and document verification for users and providers.
+
+### Fields
+
+- `id` (UUID, PK)
+- `user_id` (UUID, FK → users.id)
+- `verification_type` (VARCHAR(50)) — IDENTITY | BUSINESS | PAYMENT
+- `document_url` (TEXT, NULL)
+- `status` (VARCHAR(30)) — PENDING | VERIFIED | REJECTED
+- `verified_at` (TIMESTAMP, NULL)
+- `created_at` (TIMESTAMP)
+- `updated_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `users 1—* verifications` — Users can have multiple verification types
+- Ensures platform security and trust
+
+---
+
+## 22) reports
+
+**Purpose:** User reports for inappropriate content, behavior, or disputes.
+
+### Fields
+
+- `id` (UUID, PK)
+- `reported_by_user_id` (UUID, FK → users.id)
+- `reported_user_id` (UUID, FK → users.id, NULL)
+- `listing_id` (UUID, FK → listings.id, NULL)
+- `report_type` (VARCHAR(50)) — SPAM | INAPPROPRIATE | FRAUD | DISPUTE
+- `description` (TEXT)
+- `status` (VARCHAR(30)) — PENDING | REVIEWED | RESOLVED | DISMISSED
+- `created_at` (TIMESTAMP)
+- `updated_at` (TIMESTAMP)
+
+### Relationships (why)
+
+- `users 1—* reports` — Users can file and receive reports
+- `listings 1—* reports` — Listings can be reported
+- Enables platform moderation and safety
+
+---
+
+# Relationship Summary
+
+- `users 1—1 providers`
+- `users 1—* bookings`
+- `users 1—* reviews`
+- `users 1—* favorites`
+- `users 1—* leads`
+- `users 1—* tours`
+- `users 1—* verifications`
+- `users 1—* reports` (as reporter and reported)
+- `providers 1—* listings`
+- `providers 1—* subscriptions`
+- `listings 1—* listing_images`
+- `listings *—* amenities` (through listing_amenities)
+- `listings *—* services` (through listing_services)
+- `listings *—* equipment` (through listing_equipment)
+- `listings *—* languages` (through listing_languages)
+- `listings 1—* house_rules`
+- `listings 1—* tours`
+- `listings 1—* bookings`
+- `listings 1—* reviews`
+- `listings 1—* favorites`
+- `listings 1—* leads`
+- `listings 1—* reports`
+- `bookings 1—1 payments`
+- `bookings 1—1 reviews`
+- `amenities 1—* listing_amenities`
+- `services 1—* listing_services`
+- `equipment 1—* listing_equipment`
+- `languages 1—* listing_languages`
+
+---
+
+# Example Booking Flow
+
+Example booking process:
+
+```text
+1. Guest searches for properties in Paris
+2. Filters by: WiFi, Pool, 2+ bedrooms
+3. Views listing details with images and amenities
+4. Saves listing to favorites
+5. Creates lead to ask about pet policy
+6. Provider responds via lead
+7. Guest books for 5 nights
+8. Payment processed
+9. Booking confirmed
+10. After stay, guest leaves 5-star review
+11. Provider responds to review
+```
+
+The system:
+
+1. Tracks the search and filter criteria
+2. Stores the favorite
+3. Manages the lead conversation
+4. Creates the booking
+5. Processes the payment
+6. Generates the review
+7. Updates listing statistics
+
+---
+
+# Key Design Decisions
+
+## Why Separate Master Catalogs?
+
+The system uses master catalogs for `amenities`, `services`, `equipment`, and `languages` to:
+
+- **Ensure consistency** across listings
+- **Enable filtering** by standardized attributes
+- **Simplify management** of common attributes
+- **Support analytics** on popular features
+
+## Why Junction Tables?
+
+Junction tables (`listing_amenities`, `listing_services`, etc.) allow:
+
+- **Many-to-many relationships** between listings and attributes
+- **Custom pricing** for services per listing
+- **Quantity tracking** for equipment
+- **Flexible configuration** without denormalization
+
+## Why Separate Payments Table?
+
+The `payments` table is separate from `bookings` to:
+
+- **Support multiple payment attempts** if first fails
+- **Track payment history** independently
+- **Handle refunds** as separate transactions
+- **Integrate with payment gateways** more easily
+
+## Why Leads Table?
+
+The `leads` table enables:
+
+- **Pre-booking communication** between guests and providers
+- **Lead tracking** for conversion analytics
+- **Message history** before booking commitment
+- **Marketing insights** on inquiry patterns
+
+---
+
+# End of Document
+
