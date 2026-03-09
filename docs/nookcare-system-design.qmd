@@ -8,96 +8,112 @@ format:
 
 # Project Overview
 
-This document describes the architecture for **Nook and Care**, a property rental and accommodation booking platform.
+This document describes the architecture for **Nook and Care**, a senior housing marketplace platform designed to help families find verified senior housing facilities.
 
 The goal of the system is to help:
 
-- **Property owners** list and manage their rental properties
-- **Travelers** discover and book accommodations
-- **Platform administrators** manage the marketplace
-- Support **multi-tenant operations** for scalability
+- **Families and Seniors** search for and discover verified senior housing facilities
+- **Housing Providers** list and manage their senior care facilities
+- **Agents** access leads and premium data
+- **Platform Administrators** verify listings and manage the marketplace
 
 The system allows users to:
 
-1. Browse and search for properties
-2. View detailed property listings with images, amenities, and services
-3. Book accommodations with flexible scheduling
-4. Leave reviews and ratings
-5. Manage subscriptions and payments
-6. Track leads and conversions
+1. Search and discover senior housing listings
+2. View detailed facility listings with images, amenities, and care types
+3. Book tours (in-person or virtual) for facilities
+4. Compare listings side-by-side
+5. Leave reviews and ratings
+6. Manage subscriptions and payments (for providers)
+7. Report fraud and verify providers
 
-The design is built to support **many property providers and travelers using the same platform**.
+The design is built as a **single-tenant platform** supporting many providers and families using the same marketplace.
 
 ---
 
 # User Stories
 
-## Property Provider / Host
+## Provider (Housing Facility Owner)
 
-As a **property provider**, I want to:
+As a **provider**, I want to:
 
-- Create and manage **property listings**
-- Upload **property images**
-- Configure **amenities, services, and equipment** for my properties
-- Set **house rules** for guests
-- Manage **bookings and availability**
-- View **reviews and ratings** from guests
-- Track **revenue and payments**
-- Manage **subscriptions** for premium features
+- Create and manage **senior housing listings**
+- Upload **facility images**
+- Configure **amenities, care types, and room types** for my facilities
+- Set **pricing** for different room types
+- Manage **tour bookings** and availability
+- Receive and respond to **tour requests**
+- View **reviews and ratings** from families
+- Manage **subscriptions** (Free, Pro, Premium plans)
+- Upgrade listings to **featured** status
 
-## Traveler / Guest
+## Family / Senior (Registered User)
 
-As a **traveler**, I want to:
+As a **family member or senior**, I want to:
 
-- Search and filter properties by location, amenities, and services
-- View detailed property information with images
-- Book accommodations for specific dates
-- Save **favorite properties** for later
-- Leave **reviews and ratings** after stays
-- Manage my **bookings and reservations**
-- Contact property providers through **leads**
+- Search and filter senior housing by location, care type, budget, and room type
+- View detailed facility information with images and amenities
+- Compare multiple listings side-by-side
+- Book **tours** (in-person or virtual) for facilities
+- Save **favorite listings** for later
+- Track my **tour bookings**
+- Leave **reviews and ratings** after visits
+- Report **fraud or fake listings**
+
+## Agent
+
+As an **agent**, I want to:
+
+- Access **lead dashboard** with family inquiries
+- View **premium listings** and data
+- Contact families and providers
+- Track conversion metrics
 
 ## Platform Administrator
 
 As an **administrator**, I want to:
 
-- Manage **user accounts and providers**
-- Verify property listings and provider credentials
-- Monitor **bookings and transactions**
-- Handle **reports and disputes**
-- Manage **subscription plans**
-- Track platform analytics and performance
+- Verify **providers** through business verification workflow
+- Approve or reject **listings** before publication
+- Review and moderate **reports** (fraud, fake listings, misleading images)
+- Manage **subscription plans** and payments
+- Monitor platform analytics and performance
+- Handle **verification** requests (government license checks, AI image validation)
 
 
 # Industry Workflow
 
-Typical workflow for property rental platforms:
+Typical workflow for senior housing marketplace:
 
-1. **Provider Registration**: Property owner creates account and verifies identity
-2. **Listing Creation**: Provider adds property details, images, amenities, and services
-3. **Availability Setup**: Provider sets availability calendar and pricing
-4. **Guest Search**: Traveler searches for properties matching their criteria
-5. **Booking Process**: Guest selects property, reviews details, and makes booking
-6. **Payment Processing**: System processes payment and confirms booking
-7. **Stay Experience**: Guest stays at property
-8. **Review Process**: Guest leaves review and rating after stay
-9. **Provider Response**: Provider can respond to reviews
+1. **Provider Registration**: Housing provider creates account and completes business verification
+2. **Provider Subscription**: Provider subscribes to a plan (Free, Pro, or Premium)
+3. **Listing Creation**: Provider adds facility details, images, amenities, care types, and room types
+4. **Admin Verification**: Admin verifies provider credentials and approves listing
+5. **Family Search**: Family searches for senior housing matching their criteria (location, care type, budget, room type)
+6. **Listing Comparison**: Family compares multiple listings side-by-side
+7. **Tour Booking**: Family selects listing, chooses date, and sends tour booking request
+8. **Provider Approval**: Provider approves tour request
+9. **Tour Confirmation**: System sends confirmation to family
+10. **Property Visit**: Family visits facility for tour
+11. **Placement**: Family decides on placement (outside system scope)
+12. **Review Process**: Family leaves review and rating after visit
+13. **Provider Response**: Provider can respond to reviews
 
 ---
 
 # System Architecture
 
-The system is designed with a **multi-tenant SaaS structure**.
+The system is designed as a **single-tenant marketplace platform**.
 
 Key components:
 
-- Users (Guests and Providers)
-- Property Listings
-- Bookings and Reservations
+- Users (Families/Seniors, Providers, Agents, Admin)
+- Senior Housing Listings
+- Tour Bookings
 - Reviews and Ratings
 - Payments and Subscriptions
-- Leads and Communications
-- Verifications and Reports
+- Provider Verification
+- Fraud Reporting
 
 ---
 
@@ -109,7 +125,7 @@ This is the **simple relationship view** of the system.
 erDiagram
 
 USERS ||--o{ PROVIDERS : can_be
-USERS ||--o{ BOOKINGS : makes
+USERS ||--o{ TOURS : books
 USERS ||--o{ REVIEWS : writes
 USERS ||--o{ FAVORITES : has
 USERS ||--o{ LEADS : creates
@@ -149,7 +165,7 @@ This is the **detailed field-level ER diagram** you can use when drawing the sys
 ```{mermaid}
 erDiagram
   USERS ||--o{ PROVIDERS : can_be
-  USERS ||--o{ BOOKINGS : makes
+  USERS ||--o{ TOURS : books
   USERS ||--o{ REVIEWS : writes
   USERS ||--o{ FAVORITES : has
   USERS ||--o{ LEADS : creates
@@ -207,7 +223,8 @@ erDiagram
     uuid provider_id FK
     string title
     string description
-    string property_type
+    string care_type
+    string room_type
     string address
     string city
     string state
@@ -215,11 +232,9 @@ erDiagram
     string postal_code
     decimal latitude
     decimal longitude
-    integer max_guests
-    integer bedrooms
-    integer bathrooms
-    decimal price_per_night
+    decimal price
     string currency
+    boolean is_featured
     string status
     datetime created_at
     datetime updated_at
@@ -320,16 +335,13 @@ erDiagram
     uuid id PK
     uuid listing_id FK
     uuid user_id FK
-    date check_in_date
-    date check_out_date
-    integer number_of_guests
-    decimal total_price
-    string currency
+    date tour_date
+    string tour_type
     string status
-    string payment_status
     datetime created_at
     datetime updated_at
   }
+
 
   REVIEWS {
     uuid id PK
@@ -392,6 +404,7 @@ erDiagram
     string document_url
     string status
     datetime verified_at
+    uuid verified_by_admin_id FK
     datetime created_at
     datetime updated_at
   }
@@ -415,7 +428,7 @@ erDiagram
 
 ## 1) users
 
-**Purpose:** Core user accounts for both travelers and property providers.
+**Purpose:** Core user accounts for families, seniors, providers, agents, and administrators.
 
 ### Fields
 
@@ -424,7 +437,7 @@ erDiagram
 - `password_hash` (TEXT)
 - `full_name` (VARCHAR(150))
 - `phone` (VARCHAR(30), NULL)
-- `role` (VARCHAR(20)) — GUEST | PROVIDER | ADMIN
+- `role` (VARCHAR(20)) — FAMILY | SENIOR | PROVIDER | AGENT | ADMIN
 - `is_active` (BOOLEAN)
 - `email_verified_at` (TIMESTAMP, NULL)
 - `created_at` (TIMESTAMP)
@@ -433,10 +446,9 @@ erDiagram
 ### Relationships (why)
 
 - `users 1—* providers` — A user can become a provider
-- `users 1—* bookings` — Users make bookings
+- `users 1—* tours` — Users book tours
 - `users 1—* reviews` — Users write reviews
 - `users 1—* favorites` — Users save favorite listings
-- `users 1—* leads` — Users create inquiry leads
 - `users 1—* verifications` — Users can be verified
 - `users 1—* reports` — Users can file reports
 
@@ -446,7 +458,7 @@ This table is the foundation for authentication and user management.
 
 ## 2) providers
 
-**Purpose:** Property owners and hosts who list accommodations.
+**Purpose:** Senior housing facility owners who list their care facilities.
 
 ### Fields
 
@@ -466,16 +478,16 @@ This table is the foundation for authentication and user management.
 ### Relationships (why)
 
 - `users 1—1 providers` — One user account can have one provider profile
-- `providers 1—* listings` — Providers own multiple listings
-- `providers 1—* subscriptions` — Providers can have subscription plans
+- `providers 1—* listings` — Providers own multiple facility listings
+- `providers 1—* subscriptions` — Providers can have subscription plans (Free, Pro, Premium)
 
-This table stores business information for property providers.
+This table stores business information for senior housing providers. Providers must complete verification before publishing listings.
 
 ---
 
 ## 3) listings
 
-**Purpose:** Property accommodations available for booking.
+**Purpose:** Senior housing facilities available for tours and placement.
 
 ### Fields
 
@@ -483,7 +495,8 @@ This table stores business information for property providers.
 - `provider_id` (UUID, FK → providers.id)
 - `title` (VARCHAR(200))
 - `description` (TEXT)
-- `property_type` (VARCHAR(50)) — APARTMENT | HOUSE | VILLA | CONDO | etc.
+- `care_type` (VARCHAR(50)) — INDEPENDENT_LIVING | ASSISTED_LIVING | MEMORY_CARE | NURSING_HOME | etc.
+- `room_type` (VARCHAR(50)) — PRIVATE | SEMI_PRIVATE | SHARED
 - `address` (TEXT)
 - `city` (VARCHAR(100))
 - `state` (VARCHAR(100), NULL)
@@ -491,37 +504,33 @@ This table stores business information for property providers.
 - `postal_code` (VARCHAR(20), NULL)
 - `latitude` (DECIMAL(10,8))
 - `longitude` (DECIMAL(11,8))
-- `max_guests` (INTEGER)
-- `bedrooms` (INTEGER)
-- `bathrooms` (INTEGER)
-- `price_per_night` (DECIMAL(10,2))
+- `price` (DECIMAL(10,2)) — Monthly or per room pricing
 - `currency` (VARCHAR(10))
+- `is_featured` (BOOLEAN) — Featured listings for homepage visibility
 - `status` (VARCHAR(30)) — ACTIVE | INACTIVE | PENDING | SUSPENDED
 - `created_at` (TIMESTAMP)
 - `updated_at` (TIMESTAMP)
 
 ### Relationships (why)
 
-- `providers 1—* listings` — One provider can have many properties
+- `providers 1—* listings` — One provider can have many facilities
 - `listings 1—* listing_images` — Each listing has multiple images
 - `listings 1—* listing_amenities` — Listings have amenities
-- `listings 1—* listing_services` — Listings offer services
-- `listings 1—* listing_equipment` — Listings have equipment
+- `listings 1—* listing_services` — Listings offer care services
+- `listings 1—* listing_equipment` — Listings have medical/assistive equipment
 - `listings 1—* listing_languages` — Listings support languages
-- `listings 1—* house_rules` — Listings have house rules
-- `listings 1—* tours` — Listings can offer tours
-- `listings 1—* bookings` — Listings receive bookings
+- `listings 1—* tours` — Listings offer tours (in-person or virtual)
 - `listings 1—* reviews` — Listings receive reviews
 - `listings 1—* favorites` — Listings can be favorited
-- `listings 1—* leads` — Listings receive inquiry leads
+- `listings 1—* reports` — Listings can be reported for fraud
 
-This is the core entity representing available properties.
+This is the core entity representing available senior housing facilities. Listings must be verified before publication.
 
 ---
 
 ## 4) listing_images
 
-**Purpose:** Images associated with property listings.
+**Purpose:** Images associated with senior housing facility listings.
 
 ### Fields
 
@@ -537,6 +546,7 @@ This is the core entity representing available properties.
 - `listings 1—* listing_images` — Each listing has multiple images
 - One image should be marked as primary for display purposes
 - Display order allows providers to organize images
+- Images are validated by AI for fraud prevention
 
 ---
 
@@ -716,7 +726,7 @@ This is the core entity representing available properties.
 
 ## 14) tours
 
-**Purpose:** Virtual or in-person tours scheduled for listings.
+**Purpose:** Virtual or in-person tours scheduled for senior housing facilities.
 
 ### Fields
 
@@ -724,7 +734,7 @@ This is the core entity representing available properties.
 - `listing_id` (UUID, FK → listings.id)
 - `tour_type` (VARCHAR(50)) — VIRTUAL | IN_PERSON
 - `scheduled_at` (TIMESTAMP)
-- `status` (VARCHAR(30)) — SCHEDULED | COMPLETED | CANCELLED
+- `status` (VARCHAR(30)) — PENDING | APPROVED | SCHEDULED | COMPLETED | CANCELLED
 - `booked_by_user_id` (UUID, FK → users.id, NULL)
 - `created_at` (TIMESTAMP)
 - `updated_at` (TIMESTAMP)
@@ -732,49 +742,46 @@ This is the core entity representing available properties.
 ### Relationships (why)
 
 - `listings 1—* tours` — Listings can offer multiple tours
-- `users 1—* tours` — Users can book tours
-- Allows guests to schedule property viewings before booking
+- `users 1—* tours` — Users (families/seniors) can book tours
+- Workflow: User selects listing → selects date → sends booking request → provider approves → confirmation sent
 
 ---
 
 ## 15) bookings
 
-**Purpose:** Reservations made by guests for listings.
+**Purpose:** Tour bookings made by families/seniors for facility tours.
+
+**Note:** This table may be merged with `tours` table or kept separate depending on implementation. The SRS mentions tour booking workflow, so this could represent tour bookings rather than accommodation bookings.
 
 ### Fields
 
 - `id` (UUID, PK)
 - `listing_id` (UUID, FK → listings.id)
 - `user_id` (UUID, FK → users.id)
-- `check_in_date` (DATE)
-- `check_out_date` (DATE)
-- `number_of_guests` (INTEGER)
-- `total_price` (DECIMAL(10,2))
-- `currency` (VARCHAR(10))
-- `status` (VARCHAR(30)) — PENDING | CONFIRMED | CANCELLED | COMPLETED
-- `payment_status` (VARCHAR(30)) — PENDING | PAID | REFUNDED
+- `tour_date` (DATE)
+- `tour_type` (VARCHAR(50)) — VIRTUAL | IN_PERSON
+- `status` (VARCHAR(30)) — PENDING | APPROVED | CONFIRMED | COMPLETED | CANCELLED
 - `created_at` (TIMESTAMP)
 - `updated_at` (TIMESTAMP)
 
 ### Relationships (why)
 
-- `listings 1—* bookings` — Listings receive multiple bookings
-- `users 1—* bookings` — Users make multiple bookings
-- `bookings 1—1 payments` — Each booking requires payment
-- `bookings 1—* reviews` — Bookings can generate reviews
+- `listings 1—* bookings` — Listings receive multiple tour bookings
+- `users 1—* bookings` — Users make multiple tour bookings
+- `bookings 1—* reviews` — Completed tours can generate reviews
 
-This is the core transaction entity.
+This represents tour bookings for senior housing facilities.
 
 ---
 
 ## 16) reviews
 
-**Purpose:** Reviews and ratings left by guests after their stay.
+**Purpose:** Reviews and ratings left by families/seniors after facility tours or placement.
 
 ### Fields
 
 - `id` (UUID, PK)
-- `booking_id` (UUID, FK → bookings.id)
+- `booking_id` (UUID, FK → bookings.id, NULL) — Optional, if review is after tour
 - `listing_id` (UUID, FK → listings.id)
 - `user_id` (UUID, FK → users.id)
 - `rating` (INTEGER) — 1 to 5
@@ -785,10 +792,10 @@ This is the core transaction entity.
 
 ### Relationships (why)
 
-- `bookings 1—1 reviews` — Each booking can have one review
 - `listings 1—* reviews` — Listings accumulate reviews
 - `users 1—* reviews` — Users write multiple reviews
 - Providers can respond to reviews
+- Admin moderates reviews
 
 ---
 
@@ -839,13 +846,13 @@ This is the core transaction entity.
 
 ## 19) subscriptions
 
-**Purpose:** Subscription plans for providers (premium listings, featured placement, etc.).
+**Purpose:** Subscription plans for providers to publish listings. Plans include Free (limited listings), Pro (unlimited listings), and Premium (featured listings).
 
 ### Fields
 
 - `id` (UUID, PK)
 - `provider_id` (UUID, FK → providers.id)
-- `plan_type` (VARCHAR(50)) — BASIC | PREMIUM | ENTERPRISE
+- `plan_type` (VARCHAR(50)) — FREE | PRO | PREMIUM
 - `price` (DECIMAL(10,2))
 - `billing_cycle` (VARCHAR(20)) — MONTHLY | YEARLY
 - `start_date` (DATE)
@@ -857,7 +864,8 @@ This is the core transaction entity.
 ### Relationships (why)
 
 - `providers 1—* subscriptions` — Providers can have subscription history
-- Enables recurring revenue model
+- Providers must subscribe to publish listings
+- Premium plan enables featured listings with homepage visibility and search ranking boost
 
 ---
 
@@ -886,37 +894,39 @@ This is the core transaction entity.
 
 ## 21) verifications
 
-**Purpose:** Identity and document verification for users and providers.
+**Purpose:** Verification system for providers including government license checks, manual admin review, and AI image validation. Verified providers receive a verification badge.
 
 ### Fields
 
 - `id` (UUID, PK)
-- `user_id` (UUID, FK → users.id)
-- `verification_type` (VARCHAR(50)) — IDENTITY | BUSINESS | PAYMENT
+- `user_id` (UUID, FK → users.id) — Typically for providers
+- `verification_type` (VARCHAR(50)) — BUSINESS_LICENSE | GOVERNMENT_LICENSE | IDENTITY | IMAGE_VALIDATION
 - `document_url` (TEXT, NULL)
 - `status` (VARCHAR(30)) — PENDING | VERIFIED | REJECTED
 - `verified_at` (TIMESTAMP, NULL)
+- `verified_by_admin_id` (UUID, FK → users.id, NULL) — Admin who verified
 - `created_at` (TIMESTAMP)
 - `updated_at` (TIMESTAMP)
 
 ### Relationships (why)
 
-- `users 1—* verifications` — Users can have multiple verification types
+- `users 1—* verifications` — Providers can have multiple verification types
 - Ensures platform security and trust
+- Verification includes government license checks, manual admin review, and AI image validation
 
 ---
 
 ## 22) reports
 
-**Purpose:** User reports for inappropriate content, behavior, or disputes.
+**Purpose:** Reporting system for users to report fake listings, scam providers, or misleading images. Admin receives alerts.
 
 ### Fields
 
 - `id` (UUID, PK)
 - `reported_by_user_id` (UUID, FK → users.id)
-- `reported_user_id` (UUID, FK → users.id, NULL)
-- `listing_id` (UUID, FK → listings.id, NULL)
-- `report_type` (VARCHAR(50)) — SPAM | INAPPROPRIATE | FRAUD | DISPUTE
+- `reported_user_id` (UUID, FK → users.id, NULL) — Provider being reported
+- `listing_id` (UUID, FK → listings.id, NULL) — Listing being reported
+- `report_type` (VARCHAR(50)) — FAKE_LISTING | SCAM_PROVIDER | MISLEADING_IMAGES | FRAUD | OTHER
 - `description` (TEXT)
 - `status` (VARCHAR(30)) — PENDING | REVIEWED | RESOLVED | DISMISSED
 - `created_at` (TIMESTAMP)
@@ -924,38 +934,36 @@ This is the core transaction entity.
 
 ### Relationships (why)
 
-- `users 1—* reports` — Users can file and receive reports
+- `users 1—* reports` — Users can file reports
 - `listings 1—* reports` — Listings can be reported
-- Enables platform moderation and safety
+- Enables fraud prevention and platform safety
+- Admin receives alerts for review
 
 ---
 
 # Relationship Summary
 
 - `users 1—1 providers`
-- `users 1—* bookings`
-- `users 1—* reviews`
-- `users 1—* favorites`
-- `users 1—* leads`
-- `users 1—* tours`
-- `users 1—* verifications`
+- `users 1—* tours` — Users book tours
+- `users 1—* reviews` — Users write reviews
+- `users 1—* favorites` — Users save favorite listings
+- `users 1—* leads` — Users create inquiry leads (for agents)
+- `users 1—* verifications` — Users can be verified
 - `users 1—* reports` (as reporter and reported)
-- `providers 1—* listings`
-- `providers 1—* subscriptions`
-- `listings 1—* listing_images`
+- `providers 1—* listings` — Providers own multiple facilities
+- `providers 1—* subscriptions` — Providers have subscription plans
+- `listings 1—* listing_images` — Listings have images
 - `listings *—* amenities` (through listing_amenities)
-- `listings *—* services` (through listing_services)
-- `listings *—* equipment` (through listing_equipment)
+- `listings *—* services` (through listing_services) — Care services
+- `listings *—* equipment` (through listing_equipment) — Medical/assistive equipment
 - `listings *—* languages` (through listing_languages)
-- `listings 1—* house_rules`
-- `listings 1—* tours`
-- `listings 1—* bookings`
-- `listings 1—* reviews`
-- `listings 1—* favorites`
-- `listings 1—* leads`
-- `listings 1—* reports`
-- `bookings 1—1 payments`
-- `bookings 1—1 reviews`
+- `listings 1—* house_rules` — Facility rules and policies
+- `listings 1—* tours` — Listings offer tours
+- `listings 1—* reviews` — Listings receive reviews
+- `listings 1—* favorites` — Listings can be favorited
+- `listings 1—* leads` — Listings receive inquiry leads
+- `listings 1—* reports` — Listings can be reported for fraud
+- `tours 1—* reviews` — Completed tours can generate reviews
 - `amenities 1—* listing_amenities`
 - `services 1—* listing_services`
 - `equipment 1—* listing_equipment`
@@ -963,33 +971,34 @@ This is the core transaction entity.
 
 ---
 
-# Example Booking Flow
+# Example Tour Booking Flow
 
-Example booking process:
+Example tour booking process for senior housing:
 
 ```text
-1. Guest searches for properties in Paris
-2. Filters by: WiFi, Pool, 2+ bedrooms
-3. Views listing details with images and amenities
-4. Saves listing to favorites
-5. Creates lead to ask about pet policy
-6. Provider responds via lead
-7. Guest books for 5 nights
-8. Payment processed
-9. Booking confirmed
-10. After stay, guest leaves 5-star review
+1. Family searches for senior housing in Los Angeles
+2. Filters by: Assisted Living, Private Room, Budget $3000-5000/month
+3. Views listing details with images, amenities, and care types
+4. Compares multiple listings side-by-side
+5. Saves preferred listings to favorites
+6. Selects a listing and books a tour (in-person)
+7. Provider receives tour request and approves
+8. System sends confirmation to family
+9. Family visits facility for tour
+10. After visit, family leaves 4-star review
 11. Provider responds to review
+12. Family decides on placement (outside system scope)
 ```
 
 The system:
 
-1. Tracks the search and filter criteria
-2. Stores the favorite
-3. Manages the lead conversation
-4. Creates the booking
-5. Processes the payment
-6. Generates the review
-7. Updates listing statistics
+1. Tracks the search and filter criteria (location, care type, budget, room type, ratings, availability)
+2. Stores favorites for later comparison
+3. Manages tour booking workflow (request → approval → confirmation)
+4. Tracks tour bookings and status
+5. Generates reviews after tours
+6. Updates listing statistics and ratings
+7. Supports map-based location search and distance filtering
 
 ---
 
@@ -1024,14 +1033,52 @@ The `payments` table is separate from `bookings` to:
 
 ## Why Leads Table?
 
-The `leads` table enables:
+The `leads` table enables (if implemented):
 
-- **Pre-booking communication** between guests and providers
-- **Lead tracking** for conversion analytics
-- **Message history** before booking commitment
-- **Marketing insights** on inquiry patterns
+- **Pre-tour communication** between families and providers
+- **Lead tracking** for agents to access family inquiries
+- **Message history** before tour commitment
+- **Conversion analytics** on inquiry patterns
+- **Agent dashboard** access to premium leads data
+
+**Note:** The SRS mentions agents accessing leads, so this table supports the agent role functionality.
+
+---
+
+# Table Names Summary (Per SRS)
+
+According to the Software Requirements Specification, the core database entities are:
+
+## Core Entities (from SRS Section 6)
+1. **Users** - `users` table
+2. **Providers** - `providers` table
+3. **Listings** - `listings` table
+4. **Amenities** - `amenities` table
+5. **Tours** - `tours` table
+6. **Bookings** - `bookings` table (tour bookings)
+7. **Reviews** - `reviews` table
+8. **Subscriptions** - `subscriptions` table
+9. **Payments** - `payments` table
+10. **Reports** - `reports` table
+11. **Verification** - `verifications` table
+
+## Supporting Tables (for system functionality)
+- `listing_images` - Images for listings
+- `listing_amenities` - Junction table for listings and amenities
+- `listing_services` - Junction table for listings and care services
+- `listing_equipment` - Junction table for listings and medical equipment
+- `listing_languages` - Junction table for listings and supported languages
+- `house_rules` - Facility rules and policies
+- `favorites` - Saved listings by users
+- `leads` - Inquiry leads for agent dashboard
+- `services` - Master catalog of care services
+- `equipment` - Master catalog of medical/assistive equipment
+- `languages` - Master catalog of supported languages
+
+All core entities from the SRS are represented in the database schema. The system is designed as a **single-tenant platform** (not multi-tenant SaaS).
 
 ---
 
 # End of Document
+
 
