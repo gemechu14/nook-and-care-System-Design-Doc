@@ -40,6 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="nookcare-system-design_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
+<link rel="stylesheet" href="mermaid-fullscreen.css">
 </head>
 
 <body class="quarto-light">
@@ -53,8 +54,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#project-overview" id="toc-project-overview" class="nav-link active" data-scroll-target="#project-overview">Project Overview</a></li>
   <li><a href="#user-stories" id="toc-user-stories" class="nav-link" data-scroll-target="#user-stories">User Stories</a>
   <ul class="collapse">
-  <li><a href="#property-provider-host" id="toc-property-provider-host" class="nav-link" data-scroll-target="#property-provider-host">Property Provider / Host</a></li>
-  <li><a href="#traveler-guest" id="toc-traveler-guest" class="nav-link" data-scroll-target="#traveler-guest">Traveler / Guest</a></li>
+  <li><a href="#provider-housing-facility-owner" id="toc-provider-housing-facility-owner" class="nav-link" data-scroll-target="#provider-housing-facility-owner">Provider (Housing Facility Owner)</a></li>
+  <li><a href="#family-senior-registered-user" id="toc-family-senior-registered-user" class="nav-link" data-scroll-target="#family-senior-registered-user">Family / Senior (Registered User)</a></li>
   <li><a href="#platform-administrator" id="toc-platform-administrator" class="nav-link" data-scroll-target="#platform-administrator">Platform Administrator</a></li>
   </ul></li>
   <li><a href="#industry-workflow" id="toc-industry-workflow" class="nav-link" data-scroll-target="#industry-workflow">Industry Workflow</a></li>
@@ -93,7 +94,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#fields-5" id="toc-fields-5" class="nav-link" data-scroll-target="#fields-5">Fields</a></li>
   <li><a href="#relationships-why-5" id="toc-relationships-why-5" class="nav-link" data-scroll-target="#relationships-why-5">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#services" id="toc-services" class="nav-link" data-scroll-target="#services">7) services</a>
+  <li><a href="#treatments_services" id="toc-treatments_services" class="nav-link" data-scroll-target="#treatments_services">7) treatments_services</a>
   <ul class="collapse">
   <li><a href="#fields-6" id="toc-fields-6" class="nav-link" data-scroll-target="#fields-6">Fields</a></li>
   <li><a href="#relationships-why-6" id="toc-relationships-why-6" class="nav-link" data-scroll-target="#relationships-why-6">Relationships (why)</a></li>
@@ -123,66 +124,104 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#fields-11" id="toc-fields-11" class="nav-link" data-scroll-target="#fields-11">Fields</a></li>
   <li><a href="#relationships-why-11" id="toc-relationships-why-11" class="nav-link" data-scroll-target="#relationships-why-11">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#house_rules" id="toc-house_rules" class="nav-link" data-scroll-target="#house_rules">13) house_rules</a>
+  <li><a href="#certifications" id="toc-certifications" class="nav-link" data-scroll-target="#certifications">13) certifications</a>
   <ul class="collapse">
   <li><a href="#fields-12" id="toc-fields-12" class="nav-link" data-scroll-target="#fields-12">Fields</a></li>
   <li><a href="#relationships-why-12" id="toc-relationships-why-12" class="nav-link" data-scroll-target="#relationships-why-12">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#tours" id="toc-tours" class="nav-link" data-scroll-target="#tours">14) tours</a>
+  <li><a href="#listing_certifications" id="toc-listing_certifications" class="nav-link" data-scroll-target="#listing_certifications">14) listing_certifications</a>
   <ul class="collapse">
   <li><a href="#fields-13" id="toc-fields-13" class="nav-link" data-scroll-target="#fields-13">Fields</a></li>
   <li><a href="#relationships-why-13" id="toc-relationships-why-13" class="nav-link" data-scroll-target="#relationships-why-13">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#bookings" id="toc-bookings" class="nav-link" data-scroll-target="#bookings">15) bookings</a>
+  <li><a href="#activities" id="toc-activities" class="nav-link" data-scroll-target="#activities">15) activities</a>
   <ul class="collapse">
   <li><a href="#fields-14" id="toc-fields-14" class="nav-link" data-scroll-target="#fields-14">Fields</a></li>
   <li><a href="#relationships-why-14" id="toc-relationships-why-14" class="nav-link" data-scroll-target="#relationships-why-14">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#reviews" id="toc-reviews" class="nav-link" data-scroll-target="#reviews">16) reviews</a>
+  <li><a href="#listing_activities" id="toc-listing_activities" class="nav-link" data-scroll-target="#listing_activities">16) listing_activities</a>
   <ul class="collapse">
   <li><a href="#fields-15" id="toc-fields-15" class="nav-link" data-scroll-target="#fields-15">Fields</a></li>
   <li><a href="#relationships-why-15" id="toc-relationships-why-15" class="nav-link" data-scroll-target="#relationships-why-15">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#leads" id="toc-leads" class="nav-link" data-scroll-target="#leads">17) leads</a>
+  <li><a href="#dining_options" id="toc-dining_options" class="nav-link" data-scroll-target="#dining_options">17) dining_options</a>
   <ul class="collapse">
   <li><a href="#fields-16" id="toc-fields-16" class="nav-link" data-scroll-target="#fields-16">Fields</a></li>
   <li><a href="#relationships-why-16" id="toc-relationships-why-16" class="nav-link" data-scroll-target="#relationships-why-16">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#favorites" id="toc-favorites" class="nav-link" data-scroll-target="#favorites">18) favorites</a>
+  <li><a href="#listing_dining_options" id="toc-listing_dining_options" class="nav-link" data-scroll-target="#listing_dining_options">18) listing_dining_options</a>
   <ul class="collapse">
   <li><a href="#fields-17" id="toc-fields-17" class="nav-link" data-scroll-target="#fields-17">Fields</a></li>
   <li><a href="#relationships-why-17" id="toc-relationships-why-17" class="nav-link" data-scroll-target="#relationships-why-17">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#subscriptions" id="toc-subscriptions" class="nav-link" data-scroll-target="#subscriptions">19) subscriptions</a>
+  <li><a href="#safety_features" id="toc-safety_features" class="nav-link" data-scroll-target="#safety_features">19) safety_features</a>
   <ul class="collapse">
   <li><a href="#fields-18" id="toc-fields-18" class="nav-link" data-scroll-target="#fields-18">Fields</a></li>
   <li><a href="#relationships-why-18" id="toc-relationships-why-18" class="nav-link" data-scroll-target="#relationships-why-18">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#payments" id="toc-payments" class="nav-link" data-scroll-target="#payments">20) payments</a>
+  <li><a href="#listing_safety_features" id="toc-listing_safety_features" class="nav-link" data-scroll-target="#listing_safety_features">20) listing_safety_features</a>
   <ul class="collapse">
   <li><a href="#fields-19" id="toc-fields-19" class="nav-link" data-scroll-target="#fields-19">Fields</a></li>
   <li><a href="#relationships-why-19" id="toc-relationships-why-19" class="nav-link" data-scroll-target="#relationships-why-19">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#verifications" id="toc-verifications" class="nav-link" data-scroll-target="#verifications">21) verifications</a>
+  <li><a href="#insurance_options" id="toc-insurance_options" class="nav-link" data-scroll-target="#insurance_options">21) insurance_options</a>
   <ul class="collapse">
   <li><a href="#fields-20" id="toc-fields-20" class="nav-link" data-scroll-target="#fields-20">Fields</a></li>
   <li><a href="#relationships-why-20" id="toc-relationships-why-20" class="nav-link" data-scroll-target="#relationships-why-20">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#reports" id="toc-reports" class="nav-link" data-scroll-target="#reports">22) reports</a>
+  <li><a href="#listing_insurance_options" id="toc-listing_insurance_options" class="nav-link" data-scroll-target="#listing_insurance_options">22) listing_insurance_options</a>
   <ul class="collapse">
   <li><a href="#fields-21" id="toc-fields-21" class="nav-link" data-scroll-target="#fields-21">Fields</a></li>
   <li><a href="#relationships-why-21" id="toc-relationships-why-21" class="nav-link" data-scroll-target="#relationships-why-21">Relationships (why)</a></li>
   </ul></li>
+  <li><a href="#house_rules" id="toc-house_rules" class="nav-link" data-scroll-target="#house_rules">23) house_rules</a>
+  <ul class="collapse">
+  <li><a href="#fields-22" id="toc-fields-22" class="nav-link" data-scroll-target="#fields-22">Fields</a></li>
+  <li><a href="#relationships-why-22" id="toc-relationships-why-22" class="nav-link" data-scroll-target="#relationships-why-22">Relationships (why)</a></li>
+  </ul></li>
+  <li><a href="#tours" id="toc-tours" class="nav-link" data-scroll-target="#tours">24) tours</a>
+  <ul class="collapse">
+  <li><a href="#fields-23" id="toc-fields-23" class="nav-link" data-scroll-target="#fields-23">Fields</a></li>
+  <li><a href="#relationships-why-23" id="toc-relationships-why-23" class="nav-link" data-scroll-target="#relationships-why-23">Relationships (why)</a></li>
+  </ul></li>
+  <li><a href="#bookings" id="toc-bookings" class="nav-link" data-scroll-target="#bookings">25) bookings</a>
+  <ul class="collapse">
+  <li><a href="#fields-24" id="toc-fields-24" class="nav-link" data-scroll-target="#fields-24">Fields</a></li>
+  <li><a href="#relationships-why-24" id="toc-relationships-why-24" class="nav-link" data-scroll-target="#relationships-why-24">Relationships (why)</a></li>
+  </ul></li>
+  <li><a href="#reviews" id="toc-reviews" class="nav-link" data-scroll-target="#reviews">26) reviews</a>
+  <ul class="collapse">
+  <li><a href="#fields-25" id="toc-fields-25" class="nav-link" data-scroll-target="#fields-25">Fields</a></li>
+  <li><a href="#relationships-why-25" id="toc-relationships-why-25" class="nav-link" data-scroll-target="#relationships-why-25">Relationships (why)</a></li>
+  </ul></li>
+  <li><a href="#favorites" id="toc-favorites" class="nav-link" data-scroll-target="#favorites">27) favorites</a>
+  <ul class="collapse">
+  <li><a href="#fields-26" id="toc-fields-26" class="nav-link" data-scroll-target="#fields-26">Fields</a></li>
+  <li><a href="#relationships-why-26" id="toc-relationships-why-26" class="nav-link" data-scroll-target="#relationships-why-26">Relationships (why)</a></li>
+  </ul></li>
+  <li><a href="#subscriptions" id="toc-subscriptions" class="nav-link" data-scroll-target="#subscriptions">28) subscriptions</a>
+  <ul class="collapse">
+  <li><a href="#fields-27" id="toc-fields-27" class="nav-link" data-scroll-target="#fields-27">Fields</a></li>
+  <li><a href="#relationships-why-27" id="toc-relationships-why-27" class="nav-link" data-scroll-target="#relationships-why-27">Relationships (why)</a></li>
+  </ul></li>
+  <li><a href="#payments" id="toc-payments" class="nav-link" data-scroll-target="#payments">29) payments</a>
+  <ul class="collapse">
+  <li><a href="#fields-28" id="toc-fields-28" class="nav-link" data-scroll-target="#fields-28">Fields</a></li>
+  <li><a href="#relationships-why-28" id="toc-relationships-why-28" class="nav-link" data-scroll-target="#relationships-why-28">Relationships (why)</a></li>
+  </ul></li>
+  <li><a href="#verifications" id="toc-verifications" class="nav-link" data-scroll-target="#verifications">30) verifications</a>
+  <ul class="collapse">
+  <li><a href="#fields-29" id="toc-fields-29" class="nav-link" data-scroll-target="#fields-29">Fields</a></li>
+  <li><a href="#relationships-why-29" id="toc-relationships-why-29" class="nav-link" data-scroll-target="#relationships-why-29">Relationships (why)</a></li>
+  </ul></li>
+  <li><a href="#reports" id="toc-reports" class="nav-link" data-scroll-target="#reports">31) reports</a>
+  <ul class="collapse">
+  <li><a href="#fields-30" id="toc-fields-30" class="nav-link" data-scroll-target="#fields-30">Fields</a></li>
+  <li><a href="#relationships-why-30" id="toc-relationships-why-30" class="nav-link" data-scroll-target="#relationships-why-30">Relationships (why)</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#relationship-summary" id="toc-relationship-summary" class="nav-link" data-scroll-target="#relationship-summary">Relationship Summary</a></li>
-  <li><a href="#example-booking-flow" id="toc-example-booking-flow" class="nav-link" data-scroll-target="#example-booking-flow">Example Booking Flow</a></li>
-  <li><a href="#key-design-decisions" id="toc-key-design-decisions" class="nav-link" data-scroll-target="#key-design-decisions">Key Design Decisions</a>
-  <ul class="collapse">
-  <li><a href="#why-separate-master-catalogs" id="toc-why-separate-master-catalogs" class="nav-link" data-scroll-target="#why-separate-master-catalogs">Why Separate Master Catalogs?</a></li>
-  <li><a href="#why-junction-tables" id="toc-why-junction-tables" class="nav-link" data-scroll-target="#why-junction-tables">Why Junction Tables?</a></li>
-  <li><a href="#why-separate-payments-table" id="toc-why-separate-payments-table" class="nav-link" data-scroll-target="#why-separate-payments-table">Why Separate Payments Table?</a></li>
-  <li><a href="#why-leads-table" id="toc-why-leads-table" class="nav-link" data-scroll-target="#why-leads-table">Why Leads Table?</a></li>
-  </ul></li>
+  <li><a href="#example-tour-booking-flow" id="toc-example-tour-booking-flow" class="nav-link" data-scroll-target="#example-tour-booking-flow">Example Tour Booking Flow</a></li>
   <li><a href="#end-of-document" id="toc-end-of-document" class="nav-link" data-scroll-target="#end-of-document">End of Document</a></li>
   </ul>
 </nav>
@@ -210,114 +249,123 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="project-overview" class="level1">
 <h1>Project Overview</h1>
-<p>This document describes the architecture for <strong>Nook and Care</strong>, a property rental and accommodation booking platform.</p>
+<p>This document describes the architecture for <strong>Nook and Care</strong>, a senior housing marketplace platform designed to help families find verified senior housing facilities.</p>
 <p>The goal of the system is to help:</p>
 <ul>
-<li><strong>Property owners</strong> list and manage their rental properties</li>
-<li><strong>Travelers</strong> discover and book accommodations</li>
-<li><strong>Platform administrators</strong> manage the marketplace</li>
-<li>Support <strong>multi-tenant operations</strong> for scalability</li>
+<li><strong>Families and Seniors</strong> search for and discover verified senior housing facilities</li>
+<li><strong>Housing Providers</strong> list and manage their senior care facilities</li>
+<li><strong>Platform Administrators</strong> verify listings and manage the marketplace</li>
 </ul>
 <p>The system allows users to:</p>
 <ol type="1">
-<li>Browse and search for properties</li>
-<li>View detailed property listings with images, amenities, and services</li>
-<li>Book accommodations with flexible scheduling</li>
+<li>Search and discover senior housing listings</li>
+<li>View detailed facility listings with images, amenities, and care types</li>
+<li>Book tours (in-person or virtual) for facilities</li>
+<li>Compare listings side-by-side</li>
 <li>Leave reviews and ratings</li>
-<li>Manage subscriptions and payments</li>
-<li>Track leads and conversions</li>
+<li>Manage subscriptions and payments (for providers)</li>
+<li>Report fraud and verify providers</li>
 </ol>
-<p>The design is built to support <strong>many property providers and travelers using the same platform</strong>.</p>
+<p>The design is built as a <strong>marketplace platform</strong> supporting many providers and families using the same shared marketplace.</p>
 <hr>
 </section>
 <section id="user-stories" class="level1">
 <h1>User Stories</h1>
-<section id="property-provider-host" class="level2">
-<h2 class="anchored" data-anchor-id="property-provider-host">Property Provider / Host</h2>
-<p>As a <strong>property provider</strong>, I want to:</p>
+<section id="provider-housing-facility-owner" class="level2">
+<h2 class="anchored" data-anchor-id="provider-housing-facility-owner">Provider (Housing Facility Owner)</h2>
+<p>As a <strong>provider</strong>, I want to:</p>
 <ul>
-<li>Create and manage <strong>property listings</strong></li>
-<li>Upload <strong>property images</strong></li>
-<li>Configure <strong>amenities, services, and equipment</strong> for my properties</li>
-<li>Set <strong>house rules</strong> for guests</li>
-<li>Manage <strong>bookings and availability</strong></li>
-<li>View <strong>reviews and ratings</strong> from guests</li>
-<li>Track <strong>revenue and payments</strong></li>
-<li>Manage <strong>subscriptions</strong> for premium features</li>
+<li>Create and manage <strong>senior housing listings</strong></li>
+<li>Upload <strong>facility images</strong></li>
+<li>Configure <strong>amenities, care types, and room types</strong> for my facilities</li>
+<li>Set <strong>pricing</strong> for different room types</li>
+<li>Manage <strong>tour bookings</strong> and availability</li>
+<li>Receive and respond to <strong>tour requests</strong></li>
+<li>View <strong>reviews and ratings</strong> from families</li>
+<li>Manage <strong>subscriptions</strong> (Free, Pro, Premium plans)</li>
+<li>Upgrade listings to <strong>featured</strong> status</li>
 </ul>
 </section>
-<section id="traveler-guest" class="level2">
-<h2 class="anchored" data-anchor-id="traveler-guest">Traveler / Guest</h2>
-<p>As a <strong>traveler</strong>, I want to:</p>
+<section id="family-senior-registered-user" class="level2">
+<h2 class="anchored" data-anchor-id="family-senior-registered-user">Family / Senior (Registered User)</h2>
+<p>As a <strong>family member or senior</strong>, I want to:</p>
 <ul>
-<li>Search and filter properties by location, amenities, and services</li>
-<li>View detailed property information with images</li>
-<li>Book accommodations for specific dates</li>
-<li>Save <strong>favorite properties</strong> for later</li>
-<li>Leave <strong>reviews and ratings</strong> after stays</li>
-<li>Manage my <strong>bookings and reservations</strong></li>
-<li>Contact property providers through <strong>leads</strong></li>
+<li>Search and filter senior housing by location, care type, budget, and room type</li>
+<li>View detailed facility information with images and amenities</li>
+<li>Compare multiple listings side-by-side</li>
+<li>Book <strong>tours</strong> (in-person or virtual) for facilities</li>
+<li>Save <strong>favorite listings</strong> for later</li>
+<li>Track my <strong>tour bookings</strong></li>
+<li>Leave <strong>reviews and ratings</strong> after visits</li>
+<li>Report <strong>fraud or fake listings</strong></li>
 </ul>
 </section>
 <section id="platform-administrator" class="level2">
 <h2 class="anchored" data-anchor-id="platform-administrator">Platform Administrator</h2>
 <p>As an <strong>administrator</strong>, I want to:</p>
 <ul>
-<li>Manage <strong>user accounts and providers</strong></li>
-<li>Verify property listings and provider credentials</li>
-<li>Monitor <strong>bookings and transactions</strong></li>
-<li>Handle <strong>reports and disputes</strong></li>
-<li>Manage <strong>subscription plans</strong></li>
-<li>Track platform analytics and performance</li>
+<li>Verify <strong>providers</strong> through business verification workflow</li>
+<li>Approve or reject <strong>listings</strong> before publication</li>
+<li>Review and moderate <strong>reports</strong> (fraud, fake listings, misleading images)</li>
+<li>Manage <strong>subscription plans</strong> and payments</li>
+<li>Monitor platform analytics and performance</li>
+<li>Handle <strong>verification</strong> requests (government license checks, AI image validation)</li>
 </ul>
 </section>
 </section>
 <section id="industry-workflow" class="level1">
 <h1>Industry Workflow</h1>
-<p>Typical workflow for property rental platforms:</p>
+<p>Typical workflow for senior housing marketplace:</p>
 <ol type="1">
-<li><strong>Provider Registration</strong>: Property owner creates account and verifies identity</li>
-<li><strong>Listing Creation</strong>: Provider adds property details, images, amenities, and services</li>
-<li><strong>Availability Setup</strong>: Provider sets availability calendar and pricing</li>
-<li><strong>Guest Search</strong>: Traveler searches for properties matching their criteria</li>
-<li><strong>Booking Process</strong>: Guest selects property, reviews details, and makes booking</li>
-<li><strong>Payment Processing</strong>: System processes payment and confirms booking</li>
-<li><strong>Stay Experience</strong>: Guest stays at property</li>
-<li><strong>Review Process</strong>: Guest leaves review and rating after stay</li>
+<li><strong>Provider Registration</strong>: Housing provider creates account and completes business verification</li>
+<li><strong>Provider Subscription</strong>: Provider subscribes to a plan (Free, Pro, or Premium)</li>
+<li><strong>Listing Creation</strong>: Provider adds facility details, images, amenities, care types, and room types</li>
+<li><strong>Admin Verification</strong>: Admin verifies provider credentials and approves listing</li>
+<li><strong>Family Search</strong>: Family searches for senior housing matching their criteria (location, care type, budget, room type)</li>
+<li><strong>Listing Comparison</strong>: Family compares multiple listings side-by-side</li>
+<li><strong>Tour Booking</strong>: Family selects listing, chooses date, and sends tour booking request</li>
+<li><strong>Provider Approval</strong>: Provider approves tour request</li>
+<li><strong>Tour Confirmation</strong>: System sends confirmation to family</li>
+<li><strong>Property Visit</strong>: Family visits facility for tour</li>
+<li><strong>Placement</strong>: Family decides on placement (outside system scope)</li>
+<li><strong>Review Process</strong>: Family leaves review and rating after visit</li>
 <li><strong>Provider Response</strong>: Provider can respond to reviews</li>
 </ol>
 <hr>
 </section>
 <section id="system-architecture" class="level1">
 <h1>System Architecture</h1>
-<p>The system is designed with a <strong>multi-tenant SaaS structure</strong>.</p>
+<p>The system is designed as a <strong>marketplace platform</strong>.</p>
 <p>Key components:</p>
 <ul>
-<li>Users (Guests and Providers)</li>
-<li>Property Listings</li>
-<li>Bookings and Reservations</li>
+<li>Users (Families/Seniors, Providers, Admin)</li>
+<li>Senior Housing Listings</li>
+<li>Tour Bookings</li>
 <li>Reviews and Ratings</li>
 <li>Payments and Subscriptions</li>
-<li>Leads and Communications</li>
-<li>Verifications and Reports</li>
+<li>Provider Verification</li>
+<li>Fraud Reporting</li>
 </ul>
 <hr>
 </section>
 <section id="entity-relationship-diagram" class="level1">
 <h1>Entity Relationship Diagram</h1>
 <p>This is the <strong>simple relationship view</strong> of the system.</p>
+<blockquote class="blockquote">
+<p><strong>Tip:</strong> Click the <strong>🔍 Fullscreen</strong> button on each diagram to view it in fullscreen mode for better visibility.</p>
+</blockquote>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">erDiagram
+<pre class="mermaid mermaid-js">%%{init: {'theme':'base', 'themeVariables': {'fontSize':'48px', 'fontFamily':'Arial, sans-serif', 'primaryColor':'#ff6b6b', 'primaryTextColor':'#fff', 'primaryBorderColor':'#c92a2a', 'lineColor':'#495057', 'secondaryColor':'#4dabf7', 'tertiaryColor':'#51cf66', 'tertiaryTextColor':'#000', 'noteTextColor':'#000', 'noteBkgColor':'#fff', 'noteBorderColor':'#000', 'textColor':'#000'}, 'flowchart':{'nodeSpacing':60, 'rankSpacing':90}, 'er':{'entityPadding':18, 'fill':'#fff', 'stroke':'#495057', 'strokeWidth':2.5, 'fontSize':'48px'}}}%%
+erDiagram
 
 USERS ||--o{ PROVIDERS : can_be
-USERS ||--o{ BOOKINGS : makes
+USERS ||--o{ TOURS : books
 USERS ||--o{ REVIEWS : writes
 USERS ||--o{ FAVORITES : has
-USERS ||--o{ LEADS : creates
 
 PROVIDERS ||--o{ LISTINGS : owns
 PROVIDERS ||--o{ SUBSCRIPTIONS : has
@@ -327,6 +375,11 @@ LISTINGS ||--o{ LISTING_AMENITIES : has
 LISTINGS ||--o{ LISTING_SERVICES : has
 LISTINGS ||--o{ LISTING_EQUIPMENT : has
 LISTINGS ||--o{ LISTING_LANGUAGES : supports
+LISTINGS ||--o{ LISTING_CERTIFICATIONS : has
+LISTINGS ||--o{ LISTING_ACTIVITIES : offers
+LISTINGS ||--o{ LISTING_DINING_OPTIONS : provides
+LISTINGS ||--o{ LISTING_SAFETY_FEATURES : has
+LISTINGS ||--o{ LISTING_INSURANCE_OPTIONS : accepts
 LISTINGS ||--o{ HOUSE_RULES : has
 LISTINGS ||--o{ TOURS : offers
 LISTINGS ||--o{ BOOKINGS : receives
@@ -334,9 +387,14 @@ LISTINGS ||--o{ REVIEWS : receives
 LISTINGS ||--o{ FAVORITES : in
 
 AMENITIES ||--o{ LISTING_AMENITIES : used_in
-SERVICES ||--o{ LISTING_SERVICES : used_in
+TREATMENTS_SERVICES ||--o{ LISTING_SERVICES : used_in
 EQUIPMENT ||--o{ LISTING_EQUIPMENT : used_in
 LANGUAGES ||--o{ LISTING_LANGUAGES : used_in
+CERTIFICATIONS ||--o{ LISTING_CERTIFICATIONS : used_in
+ACTIVITIES ||--o{ LISTING_ACTIVITIES : used_in
+DINING_OPTIONS ||--o{ LISTING_DINING_OPTIONS : used_in
+SAFETY_FEATURES ||--o{ LISTING_SAFETY_FEATURES : used_in
+INSURANCE_OPTIONS ||--o{ LISTING_INSURANCE_OPTIONS : used_in
 
 BOOKINGS ||--o{ PAYMENTS : requires
 BOOKINGS ||--o{ REVIEWS : generates
@@ -359,12 +417,12 @@ USERS ||--o{ REPORTS : files
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">erDiagram
+<pre class="mermaid mermaid-js">%%{init: {'theme':'base', 'themeVariables': {'fontSize':'48px', 'fontFamily':'Arial, sans-serif', 'primaryColor':'#ff6b6b', 'primaryTextColor':'#fff', 'primaryBorderColor':'#c92a2a', 'lineColor':'#495057', 'secondaryColor':'#4dabf7', 'tertiaryColor':'#51cf66', 'tertiaryTextColor':'#000', 'noteTextColor':'#000', 'noteBkgColor':'#fff', 'noteBorderColor':'#000', 'textColor':'#000'}, 'flowchart':{'nodeSpacing':60, 'rankSpacing':90}, 'er':{'entityPadding':18, 'fill':'#fff', 'stroke':'#495057', 'strokeWidth':2.5, 'fontSize':'48px'}}}%%
+erDiagram
   USERS ||--o{ PROVIDERS : can_be
-  USERS ||--o{ BOOKINGS : makes
+  USERS ||--o{ TOURS : books
   USERS ||--o{ REVIEWS : writes
   USERS ||--o{ FAVORITES : has
-  USERS ||--o{ LEADS : creates
   PROVIDERS ||--o{ LISTINGS : owns
   PROVIDERS ||--o{ SUBSCRIPTIONS : has
   LISTINGS ||--o{ LISTING_IMAGES : has
@@ -372,15 +430,25 @@ USERS ||--o{ REPORTS : files
   LISTINGS ||--o{ LISTING_SERVICES : has
   LISTINGS ||--o{ LISTING_EQUIPMENT : has
   LISTINGS ||--o{ LISTING_LANGUAGES : supports
+  LISTINGS ||--o{ LISTING_CERTIFICATIONS : has
+  LISTINGS ||--o{ LISTING_ACTIVITIES : offers
+  LISTINGS ||--o{ LISTING_DINING_OPTIONS : provides
+  LISTINGS ||--o{ LISTING_SAFETY_FEATURES : has
+  LISTINGS ||--o{ LISTING_INSURANCE_OPTIONS : accepts
   LISTINGS ||--o{ HOUSE_RULES : has
   LISTINGS ||--o{ TOURS : offers
   LISTINGS ||--o{ BOOKINGS : receives
   LISTINGS ||--o{ REVIEWS : receives
   LISTINGS ||--o{ FAVORITES : in
   AMENITIES ||--o{ LISTING_AMENITIES : used_in
-  SERVICES ||--o{ LISTING_SERVICES : used_in
+  TREATMENTS_SERVICES ||--o{ LISTING_SERVICES : used_in
   EQUIPMENT ||--o{ LISTING_EQUIPMENT : used_in
   LANGUAGES ||--o{ LISTING_LANGUAGES : used_in
+  CERTIFICATIONS ||--o{ LISTING_CERTIFICATIONS : used_in
+  ACTIVITIES ||--o{ LISTING_ACTIVITIES : used_in
+  DINING_OPTIONS ||--o{ LISTING_DINING_OPTIONS : used_in
+  SAFETY_FEATURES ||--o{ LISTING_SAFETY_FEATURES : used_in
+  INSURANCE_OPTIONS ||--o{ LISTING_INSURANCE_OPTIONS : used_in
   BOOKINGS ||--o{ PAYMENTS : requires
   BOOKINGS ||--o{ REVIEWS : generates
   USERS ||--o{ VERIFICATIONS : has
@@ -419,7 +487,8 @@ USERS ||--o{ REPORTS : files
     uuid provider_id FK
     string title
     string description
-    string property_type
+    string care_type
+    string room_type
     string address
     string city
     string state
@@ -427,11 +496,17 @@ USERS ||--o{ REPORTS : files
     string postal_code
     decimal latitude
     decimal longitude
-    integer max_guests
-    integer bedrooms
-    integer bathrooms
-    decimal price_per_night
+    decimal price
     string currency
+    integer capacity
+    integer available_beds
+    string staff_ratio
+    integer established_year
+    string phone
+    string email
+    string license_number
+    boolean is_featured
+    boolean has_24_hour_care
     string status
     datetime created_at
     datetime updated_at
@@ -461,19 +536,17 @@ USERS ||--o{ REPORTS : files
     datetime created_at
   }
 
-  SERVICES {
+  TREATMENTS_SERVICES {
     uuid id PK
     string name
     string description
-    string category
-    decimal base_price
     datetime created_at
   }
 
   LISTING_SERVICES {
     uuid id PK
     uuid listing_id FK
-    uuid service_id FK
+    uuid treatment_service_id FK
     decimal price
     boolean is_included
     datetime created_at
@@ -509,6 +582,79 @@ USERS ||--o{ REPORTS : files
     datetime created_at
   }
 
+  CERTIFICATIONS {
+    uuid id PK
+    string name
+    string description
+    datetime created_at
+  }
+
+  LISTING_CERTIFICATIONS {
+    uuid id PK
+    uuid listing_id FK
+    uuid certification_id FK
+    string license_number
+    datetime created_at
+  }
+
+  ACTIVITIES {
+    uuid id PK
+    string name
+    string category
+    string description
+    datetime created_at
+  }
+
+  LISTING_ACTIVITIES {
+    uuid id PK
+    uuid listing_id FK
+    uuid activity_id FK
+    datetime created_at
+  }
+
+  DINING_OPTIONS {
+    uuid id PK
+    string name
+    string description
+    datetime created_at
+  }
+
+  LISTING_DINING_OPTIONS {
+    uuid id PK
+    uuid listing_id FK
+    uuid dining_option_id FK
+    datetime created_at
+  }
+
+  SAFETY_FEATURES {
+    uuid id PK
+    string name
+    string category
+    string description
+    datetime created_at
+  }
+
+  LISTING_SAFETY_FEATURES {
+    uuid id PK
+    uuid listing_id FK
+    uuid safety_feature_id FK
+    datetime created_at
+  }
+
+  INSURANCE_OPTIONS {
+    uuid id PK
+    string name
+    string description
+    datetime created_at
+  }
+
+  LISTING_INSURANCE_OPTIONS {
+    uuid id PK
+    uuid listing_id FK
+    uuid insurance_option_id FK
+    datetime created_at
+  }
+
   HOUSE_RULES {
     uuid id PK
     uuid listing_id FK
@@ -532,16 +678,13 @@ USERS ||--o{ REPORTS : files
     uuid id PK
     uuid listing_id FK
     uuid user_id FK
-    date check_in_date
-    date check_out_date
-    integer number_of_guests
-    decimal total_price
-    string currency
+    date tour_date
+    string tour_type
     string status
-    string payment_status
     datetime created_at
     datetime updated_at
   }
+
 
   REVIEWS {
     uuid id PK
@@ -551,16 +694,6 @@ USERS ||--o{ REPORTS : files
     integer rating
     string comment
     string response_from_provider
-    datetime created_at
-    datetime updated_at
-  }
-
-  LEADS {
-    uuid id PK
-    uuid listing_id FK
-    uuid user_id FK
-    string message
-    string status
     datetime created_at
     datetime updated_at
   }
@@ -604,6 +737,7 @@ USERS ||--o{ REPORTS : files
     string document_url
     string status
     datetime verified_at
+    uuid verified_by_admin_id FK
     datetime created_at
     datetime updated_at
   }
@@ -631,7 +765,7 @@ USERS ||--o{ REPORTS : files
 <h1>Table Descriptions</h1>
 <section id="users" class="level2">
 <h2 class="anchored" data-anchor-id="users">1) users</h2>
-<p><strong>Purpose:</strong> Core user accounts for both travelers and property providers.</p>
+<p><strong>Purpose:</strong> Core user accounts for families, seniors, providers, and administrators.</p>
 <section id="fields" class="level3">
 <h3 class="anchored" data-anchor-id="fields">Fields</h3>
 <ul>
@@ -640,7 +774,7 @@ USERS ||--o{ REPORTS : files
 <li><code>password_hash</code> (TEXT)</li>
 <li><code>full_name</code> (VARCHAR(150))</li>
 <li><code>phone</code> (VARCHAR(30), NULL)</li>
-<li><code>role</code> (VARCHAR(20)) — GUEST | PROVIDER | ADMIN</li>
+<li><code>role</code> (VARCHAR(20)) — FAMILY | SENIOR | PROVIDER | ADMIN</li>
 <li><code>is_active</code> (BOOLEAN)</li>
 <li><code>email_verified_at</code> (TIMESTAMP, NULL)</li>
 <li><code>created_at</code> (TIMESTAMP)</li>
@@ -651,10 +785,9 @@ USERS ||--o{ REPORTS : files
 <h3 class="anchored" data-anchor-id="relationships-why">Relationships (why)</h3>
 <ul>
 <li><code>users 1—* providers</code> — A user can become a provider</li>
-<li><code>users 1—* bookings</code> — Users make bookings</li>
+<li><code>users 1—* tours</code> — Users book tours</li>
 <li><code>users 1—* reviews</code> — Users write reviews</li>
 <li><code>users 1—* favorites</code> — Users save favorite listings</li>
-<li><code>users 1—* leads</code> — Users create inquiry leads</li>
 <li><code>users 1—* verifications</code> — Users can be verified</li>
 <li><code>users 1—* reports</code> — Users can file reports</li>
 </ul>
@@ -664,7 +797,7 @@ USERS ||--o{ REPORTS : files
 </section>
 <section id="providers" class="level2">
 <h2 class="anchored" data-anchor-id="providers">2) providers</h2>
-<p><strong>Purpose:</strong> Property owners and hosts who list accommodations.</p>
+<p><strong>Purpose:</strong> Senior housing facility owners who list their care facilities.</p>
 <section id="fields-1" class="level3">
 <h3 class="anchored" data-anchor-id="fields-1">Fields</h3>
 <ul>
@@ -686,16 +819,16 @@ USERS ||--o{ REPORTS : files
 <h3 class="anchored" data-anchor-id="relationships-why-1">Relationships (why)</h3>
 <ul>
 <li><code>users 1—1 providers</code> — One user account can have one provider profile</li>
-<li><code>providers 1—* listings</code> — Providers own multiple listings</li>
-<li><code>providers 1—* subscriptions</code> — Providers can have subscription plans</li>
+<li><code>providers 1—* listings</code> — Providers own multiple facility listings</li>
+<li><code>providers 1—* subscriptions</code> — Providers can have subscription plans (Free, Pro, Premium)</li>
 </ul>
-<p>This table stores business information for property providers.</p>
+<p>This table stores business information for senior housing providers. Providers must complete verification before publishing listings.</p>
 <hr>
 </section>
 </section>
 <section id="listings" class="level2">
 <h2 class="anchored" data-anchor-id="listings">3) listings</h2>
-<p><strong>Purpose:</strong> Property accommodations available for booking.</p>
+<p><strong>Purpose:</strong> Senior housing facilities available for tours and placement.</p>
 <section id="fields-2" class="level3">
 <h3 class="anchored" data-anchor-id="fields-2">Fields</h3>
 <ul>
@@ -703,7 +836,16 @@ USERS ||--o{ REPORTS : files
 <li><code>provider_id</code> (UUID, FK → providers.id)</li>
 <li><code>title</code> (VARCHAR(200))</li>
 <li><code>description</code> (TEXT)</li>
-<li><code>property_type</code> (VARCHAR(50)) — APARTMENT | HOUSE | VILLA | CONDO | etc.</li>
+<li><code>care_type</code> (VARCHAR(50)) — ASSISTED_LIVING | MEMORY_CARE | INDEPENDENT_LIVING | ADULT_FAMILY_HOME | SKILLED_NURSING</li>
+<li><code>capacity</code> (INTEGER) — Total number of residents the facility can accommodate</li>
+<li><code>available_beds</code> (INTEGER) — Number of available beds</li>
+<li><code>staff_ratio</code> (VARCHAR(50), NULL) — Staff to resident ratio (e.g., “1:3”)</li>
+<li><code>established_year</code> (INTEGER, NULL) — Year facility was established</li>
+<li><code>phone</code> (VARCHAR(30), NULL) — Contact phone number</li>
+<li><code>email</code> (VARCHAR(255), NULL) — Contact email address</li>
+<li><code>license_number</code> (VARCHAR(100), NULL) — State license number (if applicable)</li>
+<li><code>has_24_hour_care</code> (BOOLEAN) — Whether 24-hour care is available</li>
+<li><code>room_type</code> (VARCHAR(50)) — PRIVATE | SEMI_PRIVATE | SHARED</li>
 <li><code>address</code> (TEXT)</li>
 <li><code>city</code> (VARCHAR(100))</li>
 <li><code>state</code> (VARCHAR(100), NULL)</li>
@@ -711,11 +853,9 @@ USERS ||--o{ REPORTS : files
 <li><code>postal_code</code> (VARCHAR(20), NULL)</li>
 <li><code>latitude</code> (DECIMAL(10,8))</li>
 <li><code>longitude</code> (DECIMAL(11,8))</li>
-<li><code>max_guests</code> (INTEGER)</li>
-<li><code>bedrooms</code> (INTEGER)</li>
-<li><code>bathrooms</code> (INTEGER)</li>
-<li><code>price_per_night</code> (DECIMAL(10,2))</li>
+<li><code>price</code> (DECIMAL(10,2)) — Monthly or per room pricing</li>
 <li><code>currency</code> (VARCHAR(10))</li>
+<li><code>is_featured</code> (BOOLEAN) — Featured listings for homepage visibility</li>
 <li><code>status</code> (VARCHAR(30)) — ACTIVE | INACTIVE | PENDING | SUSPENDED</li>
 <li><code>created_at</code> (TIMESTAMP)</li>
 <li><code>updated_at</code> (TIMESTAMP)</li>
@@ -724,26 +864,29 @@ USERS ||--o{ REPORTS : files
 <section id="relationships-why-2" class="level3">
 <h3 class="anchored" data-anchor-id="relationships-why-2">Relationships (why)</h3>
 <ul>
-<li><code>providers 1—* listings</code> — One provider can have many properties</li>
+<li><code>providers 1—* listings</code> — One provider can have many facilities</li>
 <li><code>listings 1—* listing_images</code> — Each listing has multiple images</li>
 <li><code>listings 1—* listing_amenities</code> — Listings have amenities</li>
-<li><code>listings 1—* listing_services</code> — Listings offer services</li>
-<li><code>listings 1—* listing_equipment</code> — Listings have equipment</li>
+<li><code>listings 1—* listing_services</code> — Listings offer care services</li>
+<li><code>listings 1—* listing_equipment</code> — Listings have medical/assistive equipment</li>
 <li><code>listings 1—* listing_languages</code> — Listings support languages</li>
-<li><code>listings 1—* house_rules</code> — Listings have house rules</li>
-<li><code>listings 1—* tours</code> — Listings can offer tours</li>
-<li><code>listings 1—* bookings</code> — Listings receive bookings</li>
+<li><code>listings 1—* listing_certifications</code> — Listings have certifications/licenses</li>
+<li><code>listings 1—* listing_activities</code> — Listings offer activities and programs</li>
+<li><code>listings 1—* listing_dining_options</code> — Listings provide dining options</li>
+<li><code>listings 1—* listing_safety_features</code> — Listings have safety features</li>
+<li><code>listings 1—* listing_insurance_options</code> — Listings accept insurance/payment types</li>
+<li><code>listings 1—* tours</code> — Listings offer tours (in-person or virtual)</li>
 <li><code>listings 1—* reviews</code> — Listings receive reviews</li>
 <li><code>listings 1—* favorites</code> — Listings can be favorited</li>
-<li><code>listings 1—* leads</code> — Listings receive inquiry leads</li>
+<li><code>listings 1—* reports</code> — Listings can be reported for fraud</li>
 </ul>
-<p>This is the core entity representing available properties.</p>
+<p>This is the core entity representing available senior housing facilities. Listings must be verified before publication.</p>
 <hr>
 </section>
 </section>
 <section id="listing_images" class="level2">
 <h2 class="anchored" data-anchor-id="listing_images">4) listing_images</h2>
-<p><strong>Purpose:</strong> Images associated with property listings.</p>
+<p><strong>Purpose:</strong> Images associated with senior housing facility listings.</p>
 <section id="fields-3" class="level3">
 <h3 class="anchored" data-anchor-id="fields-3">Fields</h3>
 <ul>
@@ -761,6 +904,7 @@ USERS ||--o{ REPORTS : files
 <li><code>listings 1—* listing_images</code> — Each listing has multiple images</li>
 <li>One image should be marked as primary for display purposes</li>
 <li>Display order allows providers to organize images</li>
+<li>Images are validated by AI for fraud prevention</li>
 </ul>
 <hr>
 </section>
@@ -812,38 +956,36 @@ USERS ||--o{ REPORTS : files
 <hr>
 </section>
 </section>
-<section id="services" class="level2">
-<h2 class="anchored" data-anchor-id="services">7) services</h2>
-<p><strong>Purpose:</strong> Master catalog of services that can be offered (cleaning, concierge, etc.).</p>
+<section id="treatments_services" class="level2">
+<h2 class="anchored" data-anchor-id="treatments_services">7) treatments_services</h2>
+<p><strong>Purpose:</strong> Master catalog of treatments and services that can be offered (medication management, diabetes management, etc.).</p>
 <section id="fields-6" class="level3">
 <h3 class="anchored" data-anchor-id="fields-6">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
 <li><code>name</code> (VARCHAR(100))</li>
 <li><code>description</code> (TEXT, NULL)</li>
-<li><code>category</code> (VARCHAR(50))</li>
-<li><code>base_price</code> (DECIMAL(10,2), NULL)</li>
 <li><code>created_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
 <section id="relationships-why-6" class="level3">
 <h3 class="anchored" data-anchor-id="relationships-why-6">Relationships (why)</h3>
 <ul>
-<li><code>services 1—* listing_services</code> — Services are offered by multiple listings</li>
-<li>Base price provides a default, but listing_services can override</li>
+<li><code>treatments_services 1—* listing_services</code> — Treatments/services are offered by multiple listings</li>
+<li>Master catalog ensures consistency</li>
 </ul>
 <hr>
 </section>
 </section>
 <section id="listing_services" class="level2">
 <h2 class="anchored" data-anchor-id="listing_services">8) listing_services</h2>
-<p><strong>Purpose:</strong> Services offered by specific listings with custom pricing.</p>
+<p><strong>Purpose:</strong> Treatments and services offered by specific listings with custom pricing.</p>
 <section id="fields-7" class="level3">
 <h3 class="anchored" data-anchor-id="fields-7">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
 <li><code>listing_id</code> (UUID, FK → listings.id)</li>
-<li><code>service_id</code> (UUID, FK → services.id)</li>
+<li><code>treatment_service_id</code> (UUID, FK → treatments_services.id)</li>
 <li><code>price</code> (DECIMAL(10,2))</li>
 <li><code>is_included</code> (BOOLEAN) — Whether service is included in base price</li>
 <li><code>created_at</code> (TIMESTAMP)</li>
@@ -852,8 +994,8 @@ USERS ||--o{ REPORTS : files
 <section id="relationships-why-7" class="level3">
 <h3 class="anchored" data-anchor-id="relationships-why-7">Relationships (why)</h3>
 <ul>
-<li><code>listings *—* services</code> — Many-to-many with pricing</li>
-<li>Allows each listing to set custom prices for services</li>
+<li><code>listings *—* treatments_services</code> — Many-to-many with pricing</li>
+<li>Allows each listing to set custom prices for treatments/services</li>
 </ul>
 <hr>
 </section>
@@ -944,11 +1086,226 @@ USERS ||--o{ REPORTS : files
 <hr>
 </section>
 </section>
-<section id="house_rules" class="level2">
-<h2 class="anchored" data-anchor-id="house_rules">13) house_rules</h2>
-<p><strong>Purpose:</strong> Rules and policies for specific listings.</p>
+<section id="certifications" class="level2">
+<h2 class="anchored" data-anchor-id="certifications">13) certifications</h2>
+<p><strong>Purpose:</strong> Master catalog of certifications and licenses (State licensed, Medicare certified, Medicaid certified, VA approved, Joint Commission accredited).</p>
 <section id="fields-12" class="level3">
 <h3 class="anchored" data-anchor-id="fields-12">Fields</h3>
+<ul>
+<li><code>id</code> (UUID, PK)</li>
+<li><code>name</code> (VARCHAR(100))</li>
+<li><code>description</code> (TEXT, NULL)</li>
+<li><code>created_at</code> (TIMESTAMP)</li>
+</ul>
+</section>
+<section id="relationships-why-12" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-12">Relationships (why)</h3>
+<ul>
+<li><code>certifications 1—* listing_certifications</code> — Certifications are used across listings</li>
+<li>Master catalog ensures consistency for filtering</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="listing_certifications" class="level2">
+<h2 class="anchored" data-anchor-id="listing_certifications">14) listing_certifications</h2>
+<p><strong>Purpose:</strong> Certifications and licenses held by specific listings.</p>
+<section id="fields-13" class="level3">
+<h3 class="anchored" data-anchor-id="fields-13">Fields</h3>
+<ul>
+<li><code>id</code> (UUID, PK)</li>
+<li><code>listing_id</code> (UUID, FK → listings.id)</li>
+<li><code>certification_id</code> (UUID, FK → certifications.id)</li>
+<li><code>license_number</code> (VARCHAR(100), NULL) — License number if applicable</li>
+<li><code>created_at</code> (TIMESTAMP)</li>
+</ul>
+</section>
+<section id="relationships-why-13" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-13">Relationships (why)</h3>
+<ul>
+<li><code>listings *—* certifications</code> — Many-to-many relationship</li>
+<li>Tracks which certifications/licenses each facility holds</li>
+<li>Used for filtering (e.g., “State licensed”, “Medicare certified”)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="activities" class="level2">
+<h2 class="anchored" data-anchor-id="activities">15) activities</h2>
+<p><strong>Purpose:</strong> Master catalog of activities and programs offered (Gardening, Game nights, Social activities, etc.).</p>
+<section id="fields-14" class="level3">
+<h3 class="anchored" data-anchor-id="fields-14">Fields</h3>
+<ul>
+<li><code>id</code> (UUID, PK)</li>
+<li><code>name</code> (VARCHAR(100))</li>
+<li><code>category</code> (VARCHAR(50)) — RECREATIONAL | SOCIAL | FITNESS | EDUCATIONAL</li>
+<li><code>description</code> (TEXT, NULL)</li>
+<li><code>created_at</code> (TIMESTAMP)</li>
+</ul>
+</section>
+<section id="relationships-why-14" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-14">Relationships (why)</h3>
+<ul>
+<li><code>activities 1—* listing_activities</code> — Activities are offered by multiple listings</li>
+<li>Master catalog ensures consistency</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="listing_activities" class="level2">
+<h2 class="anchored" data-anchor-id="listing_activities">16) listing_activities</h2>
+<p><strong>Purpose:</strong> Activities and programs offered by specific listings.</p>
+<section id="fields-15" class="level3">
+<h3 class="anchored" data-anchor-id="fields-15">Fields</h3>
+<ul>
+<li><code>id</code> (UUID, PK)</li>
+<li><code>listing_id</code> (UUID, FK → listings.id)</li>
+<li><code>activity_id</code> (UUID, FK → activities.id)</li>
+<li><code>created_at</code> (TIMESTAMP)</li>
+</ul>
+</section>
+<section id="relationships-why-15" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-15">Relationships (why)</h3>
+<ul>
+<li><code>listings *—* activities</code> — Many-to-many relationship</li>
+<li>Tracks activities and programs available at each facility</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="dining_options" class="level2">
+<h2 class="anchored" data-anchor-id="dining_options">17) dining_options</h2>
+<p><strong>Purpose:</strong> Master catalog of dining options (Three home-cooked meals daily, Special dietary accommodations, Family-style dining, etc.).</p>
+<section id="fields-16" class="level3">
+<h3 class="anchored" data-anchor-id="fields-16">Fields</h3>
+<ul>
+<li><code>id</code> (UUID, PK)</li>
+<li><code>name</code> (VARCHAR(100))</li>
+<li><code>description</code> (TEXT, NULL)</li>
+<li><code>created_at</code> (TIMESTAMP)</li>
+</ul>
+</section>
+<section id="relationships-why-16" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-16">Relationships (why)</h3>
+<ul>
+<li><code>dining_options 1—* listing_dining_options</code> — Dining options are used across listings</li>
+<li>Master catalog ensures consistency</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="listing_dining_options" class="level2">
+<h2 class="anchored" data-anchor-id="listing_dining_options">18) listing_dining_options</h2>
+<p><strong>Purpose:</strong> Dining options provided by specific listings.</p>
+<section id="fields-17" class="level3">
+<h3 class="anchored" data-anchor-id="fields-17">Fields</h3>
+<ul>
+<li><code>id</code> (UUID, PK)</li>
+<li><code>listing_id</code> (UUID, FK → listings.id)</li>
+<li><code>dining_option_id</code> (UUID, FK → dining_options.id)</li>
+<li><code>created_at</code> (TIMESTAMP)</li>
+</ul>
+</section>
+<section id="relationships-why-17" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-17">Relationships (why)</h3>
+<ul>
+<li><code>listings *—* dining_options</code> — Many-to-many relationship</li>
+<li>Tracks dining services and meal options at each facility</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="safety_features" class="level2">
+<h2 class="anchored" data-anchor-id="safety_features">19) safety_features</h2>
+<p><strong>Purpose:</strong> Master catalog of safety features (Emergency call system, Fire safety, Fall prevention, Wheelchair accessible, etc.).</p>
+<section id="fields-18" class="level3">
+<h3 class="anchored" data-anchor-id="fields-18">Fields</h3>
+<ul>
+<li><code>id</code> (UUID, PK)</li>
+<li><code>name</code> (VARCHAR(100))</li>
+<li><code>category</code> (VARCHAR(50)) — EMERGENCY | FIRE | ACCESSIBILITY | MEDICAL</li>
+<li><code>description</code> (TEXT, NULL)</li>
+<li><code>created_at</code> (TIMESTAMP)</li>
+</ul>
+</section>
+<section id="relationships-why-18" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-18">Relationships (why)</h3>
+<ul>
+<li><code>safety_features 1—* listing_safety_features</code> — Safety features are used across listings</li>
+<li>Master catalog ensures consistency</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="listing_safety_features" class="level2">
+<h2 class="anchored" data-anchor-id="listing_safety_features">20) listing_safety_features</h2>
+<p><strong>Purpose:</strong> Safety features available at specific listings.</p>
+<section id="fields-19" class="level3">
+<h3 class="anchored" data-anchor-id="fields-19">Fields</h3>
+<ul>
+<li><code>id</code> (UUID, PK)</li>
+<li><code>listing_id</code> (UUID, FK → listings.id)</li>
+<li><code>safety_feature_id</code> (UUID, FK → safety_features.id)</li>
+<li><code>created_at</code> (TIMESTAMP)</li>
+</ul>
+</section>
+<section id="relationships-why-19" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-19">Relationships (why)</h3>
+<ul>
+<li><code>listings *—* safety_features</code> — Many-to-many relationship</li>
+<li>Tracks safety and accessibility features at each facility</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="insurance_options" class="level2">
+<h2 class="anchored" data-anchor-id="insurance_options">21) insurance_options</h2>
+<p><strong>Purpose:</strong> Master catalog of insurance and payment options (Medicare, Private insurance, Long-term care insurance, VA benefits).</p>
+<section id="fields-20" class="level3">
+<h3 class="anchored" data-anchor-id="fields-20">Fields</h3>
+<ul>
+<li><code>id</code> (UUID, PK)</li>
+<li><code>name</code> (VARCHAR(100))</li>
+<li><code>description</code> (TEXT, NULL)</li>
+<li><code>created_at</code> (TIMESTAMP)</li>
+</ul>
+</section>
+<section id="relationships-why-20" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-20">Relationships (why)</h3>
+<ul>
+<li><code>insurance_options 1—* listing_insurance_options</code> — Insurance options are used across listings</li>
+<li>Master catalog ensures consistency for filtering</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="listing_insurance_options" class="level2">
+<h2 class="anchored" data-anchor-id="listing_insurance_options">22) listing_insurance_options</h2>
+<p><strong>Purpose:</strong> Insurance and payment options accepted by specific listings.</p>
+<section id="fields-21" class="level3">
+<h3 class="anchored" data-anchor-id="fields-21">Fields</h3>
+<ul>
+<li><code>id</code> (UUID, PK)</li>
+<li><code>listing_id</code> (UUID, FK → listings.id)</li>
+<li><code>insurance_option_id</code> (UUID, FK → insurance_options.id)</li>
+<li><code>created_at</code> (TIMESTAMP)</li>
+</ul>
+</section>
+<section id="relationships-why-21" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-21">Relationships (why)</h3>
+<ul>
+<li><code>listings *—* insurance_options</code> — Many-to-many relationship</li>
+<li>Tracks which insurance types and payment methods each facility accepts</li>
+<li>Used for filtering (e.g., “Medicare”, “Private insurance”, “Long-term care insurance”, “VA benefits”)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="house_rules" class="level2">
+<h2 class="anchored" data-anchor-id="house_rules">23) house_rules</h2>
+<p><strong>Purpose:</strong> Rules and policies for specific listings.</p>
+<section id="fields-22" class="level3">
+<h3 class="anchored" data-anchor-id="fields-22">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
 <li><code>listing_id</code> (UUID, FK → listings.id)</li>
@@ -957,8 +1314,8 @@ USERS ||--o{ REPORTS : files
 <li><code>created_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-12" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-12">Relationships (why)</h3>
+<section id="relationships-why-22" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-22">Relationships (why)</h3>
 <ul>
 <li><code>listings 1—* house_rules</code> — Each listing can have multiple rules</li>
 <li>Display order allows providers to prioritize rules</li>
@@ -967,71 +1324,67 @@ USERS ||--o{ REPORTS : files
 </section>
 </section>
 <section id="tours" class="level2">
-<h2 class="anchored" data-anchor-id="tours">14) tours</h2>
-<p><strong>Purpose:</strong> Virtual or in-person tours scheduled for listings.</p>
-<section id="fields-13" class="level3">
-<h3 class="anchored" data-anchor-id="fields-13">Fields</h3>
+<h2 class="anchored" data-anchor-id="tours">24) tours</h2>
+<p><strong>Purpose:</strong> Virtual or in-person tours scheduled for senior housing facilities.</p>
+<section id="fields-23" class="level3">
+<h3 class="anchored" data-anchor-id="fields-23">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
 <li><code>listing_id</code> (UUID, FK → listings.id)</li>
 <li><code>tour_type</code> (VARCHAR(50)) — VIRTUAL | IN_PERSON</li>
 <li><code>scheduled_at</code> (TIMESTAMP)</li>
-<li><code>status</code> (VARCHAR(30)) — SCHEDULED | COMPLETED | CANCELLED</li>
+<li><code>status</code> (VARCHAR(30)) — PENDING | APPROVED | SCHEDULED | COMPLETED | CANCELLED</li>
 <li><code>booked_by_user_id</code> (UUID, FK → users.id, NULL)</li>
 <li><code>created_at</code> (TIMESTAMP)</li>
 <li><code>updated_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-13" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-13">Relationships (why)</h3>
+<section id="relationships-why-23" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-23">Relationships (why)</h3>
 <ul>
 <li><code>listings 1—* tours</code> — Listings can offer multiple tours</li>
-<li><code>users 1—* tours</code> — Users can book tours</li>
-<li>Allows guests to schedule property viewings before booking</li>
+<li><code>users 1—* tours</code> — Users (families/seniors) can book tours</li>
+<li>Workflow: User selects listing → selects date → sends booking request → provider approves → confirmation sent</li>
 </ul>
 <hr>
 </section>
 </section>
 <section id="bookings" class="level2">
-<h2 class="anchored" data-anchor-id="bookings">15) bookings</h2>
-<p><strong>Purpose:</strong> Reservations made by guests for listings.</p>
-<section id="fields-14" class="level3">
-<h3 class="anchored" data-anchor-id="fields-14">Fields</h3>
+<h2 class="anchored" data-anchor-id="bookings">25) bookings</h2>
+<p><strong>Purpose:</strong> Tour bookings made by families/seniors for facility tours.</p>
+<p><strong>Note:</strong> This table may be merged with <code>tours</code> table or kept separate depending on implementation. The SRS mentions tour booking workflow, so this could represent tour bookings rather than accommodation bookings.</p>
+<section id="fields-24" class="level3">
+<h3 class="anchored" data-anchor-id="fields-24">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
 <li><code>listing_id</code> (UUID, FK → listings.id)</li>
 <li><code>user_id</code> (UUID, FK → users.id)</li>
-<li><code>check_in_date</code> (DATE)</li>
-<li><code>check_out_date</code> (DATE)</li>
-<li><code>number_of_guests</code> (INTEGER)</li>
-<li><code>total_price</code> (DECIMAL(10,2))</li>
-<li><code>currency</code> (VARCHAR(10))</li>
-<li><code>status</code> (VARCHAR(30)) — PENDING | CONFIRMED | CANCELLED | COMPLETED</li>
-<li><code>payment_status</code> (VARCHAR(30)) — PENDING | PAID | REFUNDED</li>
+<li><code>tour_date</code> (DATE)</li>
+<li><code>tour_type</code> (VARCHAR(50)) — VIRTUAL | IN_PERSON</li>
+<li><code>status</code> (VARCHAR(30)) — PENDING | APPROVED | CONFIRMED | COMPLETED | CANCELLED</li>
 <li><code>created_at</code> (TIMESTAMP)</li>
 <li><code>updated_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-14" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-14">Relationships (why)</h3>
+<section id="relationships-why-24" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-24">Relationships (why)</h3>
 <ul>
-<li><code>listings 1—* bookings</code> — Listings receive multiple bookings</li>
-<li><code>users 1—* bookings</code> — Users make multiple bookings</li>
-<li><code>bookings 1—1 payments</code> — Each booking requires payment</li>
-<li><code>bookings 1—* reviews</code> — Bookings can generate reviews</li>
+<li><code>listings 1—* bookings</code> — Listings receive multiple tour bookings</li>
+<li><code>users 1—* bookings</code> — Users make multiple tour bookings</li>
+<li><code>bookings 1—* reviews</code> — Completed tours can generate reviews</li>
 </ul>
-<p>This is the core transaction entity.</p>
+<p>This represents tour bookings for senior housing facilities.</p>
 <hr>
 </section>
 </section>
 <section id="reviews" class="level2">
-<h2 class="anchored" data-anchor-id="reviews">16) reviews</h2>
-<p><strong>Purpose:</strong> Reviews and ratings left by guests after their stay.</p>
-<section id="fields-15" class="level3">
-<h3 class="anchored" data-anchor-id="fields-15">Fields</h3>
+<h2 class="anchored" data-anchor-id="reviews">26) reviews</h2>
+<p><strong>Purpose:</strong> Reviews and ratings left by families/seniors after facility tours or placement.</p>
+<section id="fields-25" class="level3">
+<h3 class="anchored" data-anchor-id="fields-25">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
-<li><code>booking_id</code> (UUID, FK → bookings.id)</li>
+<li><code>booking_id</code> (UUID, FK → bookings.id, NULL) — Optional, if review is after tour</li>
 <li><code>listing_id</code> (UUID, FK → listings.id)</li>
 <li><code>user_id</code> (UUID, FK → users.id)</li>
 <li><code>rating</code> (INTEGER) — 1 to 5</li>
@@ -1041,47 +1394,22 @@ USERS ||--o{ REPORTS : files
 <li><code>updated_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-15" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-15">Relationships (why)</h3>
+<section id="relationships-why-25" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-25">Relationships (why)</h3>
 <ul>
-<li><code>bookings 1—1 reviews</code> — Each booking can have one review</li>
 <li><code>listings 1—* reviews</code> — Listings accumulate reviews</li>
 <li><code>users 1—* reviews</code> — Users write multiple reviews</li>
 <li>Providers can respond to reviews</li>
-</ul>
-<hr>
-</section>
-</section>
-<section id="leads" class="level2">
-<h2 class="anchored" data-anchor-id="leads">17) leads</h2>
-<p><strong>Purpose:</strong> Inquiry messages from potential guests to providers.</p>
-<section id="fields-16" class="level3">
-<h3 class="anchored" data-anchor-id="fields-16">Fields</h3>
-<ul>
-<li><code>id</code> (UUID, PK)</li>
-<li><code>listing_id</code> (UUID, FK → listings.id)</li>
-<li><code>user_id</code> (UUID, FK → users.id)</li>
-<li><code>message</code> (TEXT)</li>
-<li><code>status</code> (VARCHAR(30)) — NEW | READ | RESPONDED | CLOSED</li>
-<li><code>created_at</code> (TIMESTAMP)</li>
-<li><code>updated_at</code> (TIMESTAMP)</li>
-</ul>
-</section>
-<section id="relationships-why-16" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-16">Relationships (why)</h3>
-<ul>
-<li><code>listings 1—* leads</code> — Listings receive inquiry leads</li>
-<li><code>users 1—* leads</code> — Users create leads</li>
-<li>Allows communication before booking</li>
+<li>Admin moderates reviews</li>
 </ul>
 <hr>
 </section>
 </section>
 <section id="favorites" class="level2">
-<h2 class="anchored" data-anchor-id="favorites">18) favorites</h2>
+<h2 class="anchored" data-anchor-id="favorites">27) favorites</h2>
 <p><strong>Purpose:</strong> Saved listings that users want to revisit.</p>
-<section id="fields-17" class="level3">
-<h3 class="anchored" data-anchor-id="fields-17">Fields</h3>
+<section id="fields-26" class="level3">
+<h3 class="anchored" data-anchor-id="fields-26">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
 <li><code>user_id</code> (UUID, FK → users.id)</li>
@@ -1089,8 +1417,8 @@ USERS ||--o{ REPORTS : files
 <li><code>created_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-17" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-17">Relationships (why)</h3>
+<section id="relationships-why-26" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-26">Relationships (why)</h3>
 <ul>
 <li><code>users 1—* favorites</code> — Users can favorite multiple listings</li>
 <li><code>listings 1—* favorites</code> — Listings can be favorited by multiple users</li>
@@ -1104,14 +1432,14 @@ USERS ||--o{ REPORTS : files
 </section>
 </section>
 <section id="subscriptions" class="level2">
-<h2 class="anchored" data-anchor-id="subscriptions">19) subscriptions</h2>
-<p><strong>Purpose:</strong> Subscription plans for providers (premium listings, featured placement, etc.).</p>
-<section id="fields-18" class="level3">
-<h3 class="anchored" data-anchor-id="fields-18">Fields</h3>
+<h2 class="anchored" data-anchor-id="subscriptions">28) subscriptions</h2>
+<p><strong>Purpose:</strong> Subscription plans for providers to publish listings. Plans include Free (limited listings), Pro (unlimited listings), and Premium (featured listings).</p>
+<section id="fields-27" class="level3">
+<h3 class="anchored" data-anchor-id="fields-27">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
 <li><code>provider_id</code> (UUID, FK → providers.id)</li>
-<li><code>plan_type</code> (VARCHAR(50)) — BASIC | PREMIUM | ENTERPRISE</li>
+<li><code>plan_type</code> (VARCHAR(50)) — FREE | PRO | PREMIUM</li>
 <li><code>price</code> (DECIMAL(10,2))</li>
 <li><code>billing_cycle</code> (VARCHAR(20)) — MONTHLY | YEARLY</li>
 <li><code>start_date</code> (DATE)</li>
@@ -1121,20 +1449,21 @@ USERS ||--o{ REPORTS : files
 <li><code>updated_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-18" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-18">Relationships (why)</h3>
+<section id="relationships-why-27" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-27">Relationships (why)</h3>
 <ul>
 <li><code>providers 1—* subscriptions</code> — Providers can have subscription history</li>
-<li>Enables recurring revenue model</li>
+<li>Providers must subscribe to publish listings</li>
+<li>Premium plan enables featured listings with homepage visibility and search ranking boost</li>
 </ul>
 <hr>
 </section>
 </section>
 <section id="payments" class="level2">
-<h2 class="anchored" data-anchor-id="payments">20) payments</h2>
+<h2 class="anchored" data-anchor-id="payments">29) payments</h2>
 <p><strong>Purpose:</strong> Payment transactions for bookings.</p>
-<section id="fields-19" class="level3">
-<h3 class="anchored" data-anchor-id="fields-19">Fields</h3>
+<section id="fields-28" class="level3">
+<h3 class="anchored" data-anchor-id="fields-28">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
 <li><code>booking_id</code> (UUID, FK → bookings.id)</li>
@@ -1147,8 +1476,8 @@ USERS ||--o{ REPORTS : files
 <li><code>created_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-19" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-19">Relationships (why)</h3>
+<section id="relationships-why-28" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-28">Relationships (why)</h3>
 <ul>
 <li><code>bookings 1—1 payments</code> — Each booking has one payment</li>
 <li>Tracks payment processing and status</li>
@@ -1157,53 +1486,56 @@ USERS ||--o{ REPORTS : files
 </section>
 </section>
 <section id="verifications" class="level2">
-<h2 class="anchored" data-anchor-id="verifications">21) verifications</h2>
-<p><strong>Purpose:</strong> Identity and document verification for users and providers.</p>
-<section id="fields-20" class="level3">
-<h3 class="anchored" data-anchor-id="fields-20">Fields</h3>
+<h2 class="anchored" data-anchor-id="verifications">30) verifications</h2>
+<p><strong>Purpose:</strong> Verification system for providers including government license checks, manual admin review, and AI image validation. Verified providers receive a verification badge.</p>
+<section id="fields-29" class="level3">
+<h3 class="anchored" data-anchor-id="fields-29">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
-<li><code>user_id</code> (UUID, FK → users.id)</li>
-<li><code>verification_type</code> (VARCHAR(50)) — IDENTITY | BUSINESS | PAYMENT</li>
+<li><code>user_id</code> (UUID, FK → users.id) — Typically for providers</li>
+<li><code>verification_type</code> (VARCHAR(50)) — BUSINESS_LICENSE | GOVERNMENT_LICENSE | IDENTITY | IMAGE_VALIDATION</li>
 <li><code>document_url</code> (TEXT, NULL)</li>
 <li><code>status</code> (VARCHAR(30)) — PENDING | VERIFIED | REJECTED</li>
 <li><code>verified_at</code> (TIMESTAMP, NULL)</li>
+<li><code>verified_by_admin_id</code> (UUID, FK → users.id, NULL) — Admin who verified</li>
 <li><code>created_at</code> (TIMESTAMP)</li>
 <li><code>updated_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-20" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-20">Relationships (why)</h3>
+<section id="relationships-why-29" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-29">Relationships (why)</h3>
 <ul>
-<li><code>users 1—* verifications</code> — Users can have multiple verification types</li>
+<li><code>users 1—* verifications</code> — Providers can have multiple verification types</li>
 <li>Ensures platform security and trust</li>
+<li>Verification includes government license checks, manual admin review, and AI image validation</li>
 </ul>
 <hr>
 </section>
 </section>
 <section id="reports" class="level2">
-<h2 class="anchored" data-anchor-id="reports">22) reports</h2>
-<p><strong>Purpose:</strong> User reports for inappropriate content, behavior, or disputes.</p>
-<section id="fields-21" class="level3">
-<h3 class="anchored" data-anchor-id="fields-21">Fields</h3>
+<h2 class="anchored" data-anchor-id="reports">31) reports</h2>
+<p><strong>Purpose:</strong> Reporting system for users to report fake listings, scam providers, or misleading images. Admin receives alerts.</p>
+<section id="fields-30" class="level3">
+<h3 class="anchored" data-anchor-id="fields-30">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
 <li><code>reported_by_user_id</code> (UUID, FK → users.id)</li>
-<li><code>reported_user_id</code> (UUID, FK → users.id, NULL)</li>
-<li><code>listing_id</code> (UUID, FK → listings.id, NULL)</li>
-<li><code>report_type</code> (VARCHAR(50)) — SPAM | INAPPROPRIATE | FRAUD | DISPUTE</li>
+<li><code>reported_user_id</code> (UUID, FK → users.id, NULL) — Provider being reported</li>
+<li><code>listing_id</code> (UUID, FK → listings.id, NULL) — Listing being reported</li>
+<li><code>report_type</code> (VARCHAR(50)) — FAKE_LISTING | SCAM_PROVIDER | MISLEADING_IMAGES | FRAUD | OTHER</li>
 <li><code>description</code> (TEXT)</li>
 <li><code>status</code> (VARCHAR(30)) — PENDING | REVIEWED | RESOLVED | DISMISSED</li>
 <li><code>created_at</code> (TIMESTAMP)</li>
 <li><code>updated_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-21" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-21">Relationships (why)</h3>
+<section id="relationships-why-30" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-30">Relationships (why)</h3>
 <ul>
-<li><code>users 1—* reports</code> — Users can file and receive reports</li>
+<li><code>users 1—* reports</code> — Users can file reports</li>
 <li><code>listings 1—* reports</code> — Listings can be reported</li>
-<li>Enables platform moderation and safety</li>
+<li>Enables fraud prevention and platform safety</li>
+<li>Admin receives alerts for review</li>
 </ul>
 <hr>
 </section>
@@ -1213,105 +1545,63 @@ USERS ||--o{ REPORTS : files
 <h1>Relationship Summary</h1>
 <ul>
 <li><code>users 1—1 providers</code></li>
-<li><code>users 1—* bookings</code></li>
-<li><code>users 1—* reviews</code></li>
-<li><code>users 1—* favorites</code></li>
-<li><code>users 1—* leads</code></li>
-<li><code>users 1—* tours</code></li>
-<li><code>users 1—* verifications</code></li>
+<li><code>users 1—* tours</code> — Users book tours</li>
+<li><code>users 1—* reviews</code> — Users write reviews</li>
+<li><code>users 1—* favorites</code> — Users save favorite listings</li>
+<li><code>users 1—* verifications</code> — Users can be verified</li>
 <li><code>users 1—* reports</code> (as reporter and reported)</li>
-<li><code>providers 1—* listings</code></li>
-<li><code>providers 1—* subscriptions</code></li>
-<li><code>listings 1—* listing_images</code></li>
+<li><code>providers 1—* listings</code> — Providers own multiple facilities</li>
+<li><code>providers 1—* subscriptions</code> — Providers have subscription plans</li>
+<li><code>listings 1—* listing_images</code> — Listings have images</li>
 <li><code>listings *—* amenities</code> (through listing_amenities)</li>
-<li><code>listings *—* services</code> (through listing_services)</li>
-<li><code>listings *—* equipment</code> (through listing_equipment)</li>
+<li><code>listings *—* treatments_services</code> (through listing_services) — Treatments and care services</li>
+<li><code>listings *—* equipment</code> (through listing_equipment) — Medical/assistive equipment</li>
 <li><code>listings *—* languages</code> (through listing_languages)</li>
-<li><code>listings 1—* house_rules</code></li>
-<li><code>listings 1—* tours</code></li>
-<li><code>listings 1—* bookings</code></li>
-<li><code>listings 1—* reviews</code></li>
-<li><code>listings 1—* favorites</code></li>
-<li><code>listings 1—* leads</code></li>
-<li><code>listings 1—* reports</code></li>
-<li><code>bookings 1—1 payments</code></li>
-<li><code>bookings 1—1 reviews</code></li>
+<li><code>listings *—* certifications</code> (through listing_certifications) — Certifications and licenses</li>
+<li><code>listings *—* activities</code> (through listing_activities) — Activities and programs</li>
+<li><code>listings *—* dining_options</code> (through listing_dining_options) — Dining services</li>
+<li><code>listings *—* safety_features</code> (through listing_safety_features) — Safety and accessibility features</li>
+<li><code>listings *—* insurance_options</code> (through listing_insurance_options) — Accepted insurance and payment types</li>
+<li><code>listings 1—* house_rules</code> — Facility rules and policies</li>
+<li><code>listings 1—* tours</code> — Listings offer tours</li>
+<li><code>listings 1—* reviews</code> — Listings receive reviews</li>
+<li><code>listings 1—* favorites</code> — Listings can be favorited</li>
+<li><code>listings 1—* reports</code> — Listings can be reported for fraud</li>
+<li><code>tours 1—* reviews</code> — Completed tours can generate reviews</li>
 <li><code>amenities 1—* listing_amenities</code></li>
-<li><code>services 1—* listing_services</code></li>
+<li><code>treatments_services 1—* listing_services</code></li>
 <li><code>equipment 1—* listing_equipment</code></li>
 <li><code>languages 1—* listing_languages</code></li>
+<li><code>insurance_options 1—* listing_insurance_options</code></li>
 </ul>
 <hr>
 </section>
-<section id="example-booking-flow" class="level1">
-<h1>Example Booking Flow</h1>
-<p>Example booking process:</p>
-<pre class="text"><code>1. Guest searches for properties in Paris
-2. Filters by: WiFi, Pool, 2+ bedrooms
-3. Views listing details with images and amenities
-4. Saves listing to favorites
-5. Creates lead to ask about pet policy
-6. Provider responds via lead
-7. Guest books for 5 nights
-8. Payment processed
-9. Booking confirmed
-10. After stay, guest leaves 5-star review
-11. Provider responds to review</code></pre>
+<section id="example-tour-booking-flow" class="level1">
+<h1>Example Tour Booking Flow</h1>
+<p>Example tour booking process for senior housing:</p>
+<pre class="text"><code>1. Family searches for senior housing in Los Angeles
+2. Filters by: Care Level (Assisted Living), Monthly Budget ($3000-5000), Amenities, Certifications, Insurance Accepted, Availability
+3. Views listing details with images, amenities, and care types
+4. Compares multiple listings side-by-side
+5. Saves preferred listings to favorites
+6. Selects a listing and books a tour (in-person)
+7. Provider receives tour request and approves
+8. System sends confirmation to family
+9. Family visits facility for tour
+10. After visit, family leaves 4-star review
+11. Provider responds to review
+12. Family decides on placement (outside system scope)</code></pre>
 <p>The system:</p>
 <ol type="1">
-<li>Tracks the search and filter criteria</li>
-<li>Stores the favorite</li>
-<li>Manages the lead conversation</li>
-<li>Creates the booking</li>
-<li>Processes the payment</li>
-<li>Generates the review</li>
-<li>Updates listing statistics</li>
+<li>Tracks the search and filter criteria (location, care level, monthly budget, amenities, certifications, insurance accepted, availability, ratings)</li>
+<li>Stores favorites for later comparison</li>
+<li>Manages tour booking workflow (request → approval → confirmation)</li>
+<li>Tracks tour bookings and status</li>
+<li>Generates reviews after tours</li>
+<li>Updates listing statistics and ratings</li>
+<li>Supports map-based location search and distance filtering</li>
 </ol>
 <hr>
-</section>
-<section id="key-design-decisions" class="level1">
-<h1>Key Design Decisions</h1>
-<section id="why-separate-master-catalogs" class="level2">
-<h2 class="anchored" data-anchor-id="why-separate-master-catalogs">Why Separate Master Catalogs?</h2>
-<p>The system uses master catalogs for <code>amenities</code>, <code>services</code>, <code>equipment</code>, and <code>languages</code> to:</p>
-<ul>
-<li><strong>Ensure consistency</strong> across listings</li>
-<li><strong>Enable filtering</strong> by standardized attributes</li>
-<li><strong>Simplify management</strong> of common attributes</li>
-<li><strong>Support analytics</strong> on popular features</li>
-</ul>
-</section>
-<section id="why-junction-tables" class="level2">
-<h2 class="anchored" data-anchor-id="why-junction-tables">Why Junction Tables?</h2>
-<p>Junction tables (<code>listing_amenities</code>, <code>listing_services</code>, etc.) allow:</p>
-<ul>
-<li><strong>Many-to-many relationships</strong> between listings and attributes</li>
-<li><strong>Custom pricing</strong> for services per listing</li>
-<li><strong>Quantity tracking</strong> for equipment</li>
-<li><strong>Flexible configuration</strong> without denormalization</li>
-</ul>
-</section>
-<section id="why-separate-payments-table" class="level2">
-<h2 class="anchored" data-anchor-id="why-separate-payments-table">Why Separate Payments Table?</h2>
-<p>The <code>payments</code> table is separate from <code>bookings</code> to:</p>
-<ul>
-<li><strong>Support multiple payment attempts</strong> if first fails</li>
-<li><strong>Track payment history</strong> independently</li>
-<li><strong>Handle refunds</strong> as separate transactions</li>
-<li><strong>Integrate with payment gateways</strong> more easily</li>
-</ul>
-</section>
-<section id="why-leads-table" class="level2">
-<h2 class="anchored" data-anchor-id="why-leads-table">Why Leads Table?</h2>
-<p>The <code>leads</code> table enables:</p>
-<ul>
-<li><strong>Pre-booking communication</strong> between guests and providers</li>
-<li><strong>Lead tracking</strong> for conversion analytics</li>
-<li><strong>Message history</strong> before booking commitment</li>
-<li><strong>Marketing insights</strong> on inquiry patterns</li>
-</ul>
-<hr>
-</section>
 </section>
 <section id="end-of-document" class="level1">
 <h1>End of Document</h1>
@@ -1720,6 +2010,200 @@ USERS ||--o{ REPORTS : files
   });
   </script>
 </div> <!-- /content -->
+<script>
+(function() {
+  function addFullscreenButtons() {
+    // Strategy: Find figure elements that contain SVGs (Quarto wraps mermaid in <figure>)
+    var figures = document.querySelectorAll('figure');
+    var processed = 0;
+
+    figures.forEach(function(figure) {
+      // Skip if already processed
+      if (figure.dataset.fullscreenAdded === 'true') return;
+
+      // Find SVG inside this figure
+      var svg = figure.querySelector('svg');
+      if (!svg) return;
+
+      // Check if it's a diagram (has viewBox and substantial content)
+      var viewBox = svg.getAttribute('viewBox');
+      var innerHTML = svg.innerHTML || '';
+
+      // Must have viewBox and substantial content (diagrams, not icons)
+      if (!viewBox || innerHTML.length < 500) return;
+
+      figure.dataset.fullscreenAdded = 'true';
+      processed++;
+
+      // Make figure container relative for button positioning
+      var currentStyle = figure.style.cssText || '';
+      figure.style.cssText = currentStyle + 'position: relative;';
+
+      // Create fullscreen button
+      var btn = document.createElement('button');
+      btn.className = 'mermaid-fullscreen-btn';
+      btn.innerHTML = '🔍 Fullscreen';
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Open diagram in fullscreen');
+      figure.appendChild(btn);
+
+      // Create modal overlay (one per figure)
+      var modal = document.createElement('div');
+      modal.className = 'mermaid-modal';
+
+      var modalContent = document.createElement('div');
+      modalContent.className = 'mermaid-modal-content';
+
+      var closeBtn = document.createElement('button');
+      closeBtn.className = 'mermaid-modal-close';
+      closeBtn.innerHTML = '&times;';
+      closeBtn.type = 'button';
+      closeBtn.setAttribute('aria-label', 'Close');
+
+      var diagramArea = document.createElement('div');
+      diagramArea.className = 'mermaid-modal-diagram';
+
+      modalContent.appendChild(closeBtn);
+      modalContent.appendChild(diagramArea);
+      modal.appendChild(modalContent);
+      document.body.appendChild(modal);
+
+      // Open modal: clone the SVG fresh each time
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Clone the SVG
+        var cloned = svg.cloneNode(true);
+
+        // Preserve viewBox, remove fixed width/height so it scales
+        var vb = svg.getAttribute('viewBox');
+        if (vb) {
+          cloned.setAttribute('viewBox', vb);
+          // Allow scaling to fill space
+          cloned.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        }
+        cloned.removeAttribute('width');
+        cloned.removeAttribute('height');
+        // Make SVG fill the modal - calculate available space
+        var availableWidth = window.innerWidth * 0.95 - 40; // 95vw minus padding
+        var availableHeight = window.innerHeight * 0.95 - 68; // 95vh minus padding
+        // Set explicit dimensions to fill space
+        cloned.setAttribute('width', availableWidth);
+        cloned.setAttribute('height', availableHeight);
+        cloned.style.cssText = 'display:block; width:' + availableWidth + 'px; height:' + availableHeight + 'px; max-width:100%; max-height:100%;';
+
+        diagramArea.innerHTML = '';
+        diagramArea.appendChild(cloned);
+
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      });
+
+      function closeModal() {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+      });
+    });
+
+    // Fallback: If no figures found, try direct SVG approach
+    if (processed === 0) {
+      var allSvgs = document.querySelectorAll('svg');
+      allSvgs.forEach(function(svg) {
+        if (svg.dataset.fullscreenAdded === 'true') return;
+
+        var viewBox = svg.getAttribute('viewBox');
+        var innerHTML = svg.innerHTML || '';
+
+        // Must be a substantial diagram
+        if (!viewBox || innerHTML.length < 500) return;
+
+        svg.dataset.fullscreenAdded = 'true';
+
+        // Wrap SVG in container
+        var parent = svg.parentElement;
+        var container = document.createElement('div');
+        container.className = 'mermaid-container';
+        container.style.cssText = 'position: relative; display: block; width: 100%;';
+        parent.insertBefore(container, svg);
+        container.appendChild(svg);
+
+        // Create button and modal (same as above)
+        var btn = document.createElement('button');
+        btn.className = 'mermaid-fullscreen-btn';
+        btn.innerHTML = '🔍 Fullscreen';
+        btn.type = 'button';
+        container.appendChild(btn);
+
+        var modal = document.createElement('div');
+        modal.className = 'mermaid-modal';
+        var modalContent = document.createElement('div');
+        modalContent.className = 'mermaid-modal-content';
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'mermaid-modal-close';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.type = 'button';
+        var diagramArea = document.createElement('div');
+        diagramArea.className = 'mermaid-modal-diagram';
+        modalContent.appendChild(closeBtn);
+        modalContent.appendChild(diagramArea);
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var cloned = svg.cloneNode(true);
+          var vb = svg.getAttribute('viewBox');
+          if (vb) {
+            cloned.setAttribute('viewBox', vb);
+            cloned.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+          }
+          cloned.removeAttribute('width');
+          cloned.removeAttribute('height');
+          cloned.style.cssText = 'display:block; width:100%; height:auto; min-height:80vh; max-width:100%;';
+          diagramArea.innerHTML = '';
+          diagramArea.appendChild(cloned);
+          modal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        });
+
+        function closeModal() {
+          modal.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+        });
+      });
+    }
+  }
+
+  // Run immediately and also after delays to catch late-rendered content
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addFullscreenButtons);
+  } else {
+    addFullscreenButtons();
+  }
+
+  // Retry after delays
+  setTimeout(addFullscreenButtons, 500);
+  setTimeout(addFullscreenButtons, 1500);
+  setTimeout(addFullscreenButtons, 3000);
+})();
+</script>
 
 
 
