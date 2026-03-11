@@ -184,40 +184,30 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#fields-23" id="toc-fields-23" class="nav-link" data-scroll-target="#fields-23">Fields</a></li>
   <li><a href="#relationships-why-23" id="toc-relationships-why-23" class="nav-link" data-scroll-target="#relationships-why-23">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#bookings" id="toc-bookings" class="nav-link" data-scroll-target="#bookings">25) bookings</a>
+  <li><a href="#reviews" id="toc-reviews" class="nav-link" data-scroll-target="#reviews">25) reviews</a>
   <ul class="collapse">
   <li><a href="#fields-24" id="toc-fields-24" class="nav-link" data-scroll-target="#fields-24">Fields</a></li>
   <li><a href="#relationships-why-24" id="toc-relationships-why-24" class="nav-link" data-scroll-target="#relationships-why-24">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#reviews" id="toc-reviews" class="nav-link" data-scroll-target="#reviews">26) reviews</a>
+  <li><a href="#favorites" id="toc-favorites" class="nav-link" data-scroll-target="#favorites">26) favorites</a>
   <ul class="collapse">
   <li><a href="#fields-25" id="toc-fields-25" class="nav-link" data-scroll-target="#fields-25">Fields</a></li>
   <li><a href="#relationships-why-25" id="toc-relationships-why-25" class="nav-link" data-scroll-target="#relationships-why-25">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#favorites" id="toc-favorites" class="nav-link" data-scroll-target="#favorites">27) favorites</a>
+  <li><a href="#subscriptions" id="toc-subscriptions" class="nav-link" data-scroll-target="#subscriptions">27) subscriptions</a>
   <ul class="collapse">
   <li><a href="#fields-26" id="toc-fields-26" class="nav-link" data-scroll-target="#fields-26">Fields</a></li>
   <li><a href="#relationships-why-26" id="toc-relationships-why-26" class="nav-link" data-scroll-target="#relationships-why-26">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#subscriptions" id="toc-subscriptions" class="nav-link" data-scroll-target="#subscriptions">28) subscriptions</a>
+  <li><a href="#payments" id="toc-payments" class="nav-link" data-scroll-target="#payments">28) payments</a>
   <ul class="collapse">
   <li><a href="#fields-27" id="toc-fields-27" class="nav-link" data-scroll-target="#fields-27">Fields</a></li>
   <li><a href="#relationships-why-27" id="toc-relationships-why-27" class="nav-link" data-scroll-target="#relationships-why-27">Relationships (why)</a></li>
   </ul></li>
-  <li><a href="#payments" id="toc-payments" class="nav-link" data-scroll-target="#payments">29) payments</a>
+  <li><a href="#reports" id="toc-reports" class="nav-link" data-scroll-target="#reports">29) reports</a>
   <ul class="collapse">
   <li><a href="#fields-28" id="toc-fields-28" class="nav-link" data-scroll-target="#fields-28">Fields</a></li>
   <li><a href="#relationships-why-28" id="toc-relationships-why-28" class="nav-link" data-scroll-target="#relationships-why-28">Relationships (why)</a></li>
-  </ul></li>
-  <li><a href="#verifications" id="toc-verifications" class="nav-link" data-scroll-target="#verifications">30) verifications</a>
-  <ul class="collapse">
-  <li><a href="#fields-29" id="toc-fields-29" class="nav-link" data-scroll-target="#fields-29">Fields</a></li>
-  <li><a href="#relationships-why-29" id="toc-relationships-why-29" class="nav-link" data-scroll-target="#relationships-why-29">Relationships (why)</a></li>
-  </ul></li>
-  <li><a href="#reports" id="toc-reports" class="nav-link" data-scroll-target="#reports">31) reports</a>
-  <ul class="collapse">
-  <li><a href="#fields-30" id="toc-fields-30" class="nav-link" data-scroll-target="#fields-30">Fields</a></li>
-  <li><a href="#relationships-why-30" id="toc-relationships-why-30" class="nav-link" data-scroll-target="#relationships-why-30">Relationships (why)</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#relationship-summary" id="toc-relationship-summary" class="nav-link" data-scroll-target="#relationship-summary">Relationship Summary</a></li>
@@ -382,7 +372,6 @@ LISTINGS ||--o{ LISTING_SAFETY_FEATURES : has
 LISTINGS ||--o{ LISTING_INSURANCE_OPTIONS : accepts
 LISTINGS ||--o{ HOUSE_RULES : has
 LISTINGS ||--o{ TOURS : offers
-LISTINGS ||--o{ BOOKINGS : receives
 LISTINGS ||--o{ REVIEWS : receives
 LISTINGS ||--o{ FAVORITES : in
 
@@ -396,10 +385,9 @@ DINING_OPTIONS ||--o{ LISTING_DINING_OPTIONS : used_in
 SAFETY_FEATURES ||--o{ LISTING_SAFETY_FEATURES : used_in
 INSURANCE_OPTIONS ||--o{ LISTING_INSURANCE_OPTIONS : used_in
 
-BOOKINGS ||--o{ PAYMENTS : requires
-BOOKINGS ||--o{ REVIEWS : generates
+TOURS ||--o{ REVIEWS : generates
+PROVIDERS ||--o{ PAYMENTS : receives
 
-USERS ||--o{ VERIFICATIONS : has
 USERS ||--o{ REPORTS : files
 </pre>
 </div>
@@ -437,7 +425,6 @@ erDiagram
   LISTINGS ||--o{ LISTING_INSURANCE_OPTIONS : accepts
   LISTINGS ||--o{ HOUSE_RULES : has
   LISTINGS ||--o{ TOURS : offers
-  LISTINGS ||--o{ BOOKINGS : receives
   LISTINGS ||--o{ REVIEWS : receives
   LISTINGS ||--o{ FAVORITES : in
   AMENITIES ||--o{ LISTING_AMENITIES : used_in
@@ -449,9 +436,8 @@ erDiagram
   DINING_OPTIONS ||--o{ LISTING_DINING_OPTIONS : used_in
   SAFETY_FEATURES ||--o{ LISTING_SAFETY_FEATURES : used_in
   INSURANCE_OPTIONS ||--o{ LISTING_INSURANCE_OPTIONS : used_in
-  BOOKINGS ||--o{ PAYMENTS : requires
-  BOOKINGS ||--o{ REVIEWS : generates
-  USERS ||--o{ VERIFICATIONS : has
+  TOURS ||--o{ REVIEWS : generates
+  PROVIDERS ||--o{ PAYMENTS : receives
   USERS ||--o{ REPORTS : files
 
   USERS {
@@ -674,21 +660,9 @@ erDiagram
     datetime updated_at
   }
 
-  BOOKINGS {
-    uuid id PK
-    uuid listing_id FK
-    uuid user_id FK
-    date tour_date
-    string tour_type
-    string status
-    datetime created_at
-    datetime updated_at
-  }
-
-
   REVIEWS {
     uuid id PK
-    uuid booking_id FK
+    uuid tour_id FK
     uuid listing_id FK
     uuid user_id FK
     integer rating
@@ -720,7 +694,7 @@ erDiagram
 
   PAYMENTS {
     uuid id PK
-    uuid booking_id FK
+    uuid provider_id FK
     decimal amount
     string currency
     string payment_method
@@ -728,18 +702,6 @@ erDiagram
     string status
     datetime processed_at
     datetime created_at
-  }
-
-  VERIFICATIONS {
-    uuid id PK
-    uuid user_id FK
-    string verification_type
-    string document_url
-    string status
-    datetime verified_at
-    uuid verified_by_admin_id FK
-    datetime created_at
-    datetime updated_at
   }
 
   REPORTS {
@@ -788,7 +750,6 @@ erDiagram
 <li><code>users 1—* tours</code> — Users book tours</li>
 <li><code>users 1—* reviews</code> — Users write reviews</li>
 <li><code>users 1—* favorites</code> — Users save favorite listings</li>
-<li><code>users 1—* verifications</code> — Users can be verified</li>
 <li><code>users 1—* reports</code> — Users can file reports</li>
 </ul>
 <p>This table is the foundation for authentication and user management.</p>
@@ -1349,42 +1310,14 @@ erDiagram
 <hr>
 </section>
 </section>
-<section id="bookings" class="level2">
-<h2 class="anchored" data-anchor-id="bookings">25) bookings</h2>
-<p><strong>Purpose:</strong> Tour bookings made by families/seniors for facility tours.</p>
-<p><strong>Note:</strong> This table may be merged with <code>tours</code> table or kept separate depending on implementation. The SRS mentions tour booking workflow, so this could represent tour bookings rather than accommodation bookings.</p>
+<section id="reviews" class="level2">
+<h2 class="anchored" data-anchor-id="reviews">25) reviews</h2>
+<p><strong>Purpose:</strong> Reviews and ratings left by families/seniors after facility tours or placement.</p>
 <section id="fields-24" class="level3">
 <h3 class="anchored" data-anchor-id="fields-24">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
-<li><code>listing_id</code> (UUID, FK → listings.id)</li>
-<li><code>user_id</code> (UUID, FK → users.id)</li>
-<li><code>tour_date</code> (DATE)</li>
-<li><code>tour_type</code> (VARCHAR(50)) — VIRTUAL | IN_PERSON</li>
-<li><code>status</code> (VARCHAR(30)) — PENDING | APPROVED | CONFIRMED | COMPLETED | CANCELLED</li>
-<li><code>created_at</code> (TIMESTAMP)</li>
-<li><code>updated_at</code> (TIMESTAMP)</li>
-</ul>
-</section>
-<section id="relationships-why-24" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-24">Relationships (why)</h3>
-<ul>
-<li><code>listings 1—* bookings</code> — Listings receive multiple tour bookings</li>
-<li><code>users 1—* bookings</code> — Users make multiple tour bookings</li>
-<li><code>bookings 1—* reviews</code> — Completed tours can generate reviews</li>
-</ul>
-<p>This represents tour bookings for senior housing facilities.</p>
-<hr>
-</section>
-</section>
-<section id="reviews" class="level2">
-<h2 class="anchored" data-anchor-id="reviews">26) reviews</h2>
-<p><strong>Purpose:</strong> Reviews and ratings left by families/seniors after facility tours or placement.</p>
-<section id="fields-25" class="level3">
-<h3 class="anchored" data-anchor-id="fields-25">Fields</h3>
-<ul>
-<li><code>id</code> (UUID, PK)</li>
-<li><code>booking_id</code> (UUID, FK → bookings.id, NULL) — Optional, if review is after tour</li>
+<li><code>tour_id</code> (UUID, FK → tours.id, NULL) — Optional, if review is after tour</li>
 <li><code>listing_id</code> (UUID, FK → listings.id)</li>
 <li><code>user_id</code> (UUID, FK → users.id)</li>
 <li><code>rating</code> (INTEGER) — 1 to 5</li>
@@ -1394,11 +1327,12 @@ erDiagram
 <li><code>updated_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-25" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-25">Relationships (why)</h3>
+<section id="relationships-why-24" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-24">Relationships (why)</h3>
 <ul>
 <li><code>listings 1—* reviews</code> — Listings accumulate reviews</li>
 <li><code>users 1—* reviews</code> — Users write multiple reviews</li>
+<li><code>tours 1—* reviews</code> — Completed tours can generate reviews</li>
 <li>Providers can respond to reviews</li>
 <li>Admin moderates reviews</li>
 </ul>
@@ -1406,10 +1340,10 @@ erDiagram
 </section>
 </section>
 <section id="favorites" class="level2">
-<h2 class="anchored" data-anchor-id="favorites">27) favorites</h2>
+<h2 class="anchored" data-anchor-id="favorites">26) favorites</h2>
 <p><strong>Purpose:</strong> Saved listings that users want to revisit.</p>
-<section id="fields-26" class="level3">
-<h3 class="anchored" data-anchor-id="fields-26">Fields</h3>
+<section id="fields-25" class="level3">
+<h3 class="anchored" data-anchor-id="fields-25">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
 <li><code>user_id</code> (UUID, FK → users.id)</li>
@@ -1417,8 +1351,8 @@ erDiagram
 <li><code>created_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-26" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-26">Relationships (why)</h3>
+<section id="relationships-why-25" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-25">Relationships (why)</h3>
 <ul>
 <li><code>users 1—* favorites</code> — Users can favorite multiple listings</li>
 <li><code>listings 1—* favorites</code> — Listings can be favorited by multiple users</li>
@@ -1432,10 +1366,10 @@ erDiagram
 </section>
 </section>
 <section id="subscriptions" class="level2">
-<h2 class="anchored" data-anchor-id="subscriptions">28) subscriptions</h2>
+<h2 class="anchored" data-anchor-id="subscriptions">27) subscriptions</h2>
 <p><strong>Purpose:</strong> Subscription plans for providers to publish listings. Plans include Free (limited listings), Pro (unlimited listings), and Premium (featured listings).</p>
-<section id="fields-27" class="level3">
-<h3 class="anchored" data-anchor-id="fields-27">Fields</h3>
+<section id="fields-26" class="level3">
+<h3 class="anchored" data-anchor-id="fields-26">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
 <li><code>provider_id</code> (UUID, FK → providers.id)</li>
@@ -1449,8 +1383,8 @@ erDiagram
 <li><code>updated_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-27" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-27">Relationships (why)</h3>
+<section id="relationships-why-26" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-26">Relationships (why)</h3>
 <ul>
 <li><code>providers 1—* subscriptions</code> — Providers can have subscription history</li>
 <li>Providers must subscribe to publish listings</li>
@@ -1460,13 +1394,13 @@ erDiagram
 </section>
 </section>
 <section id="payments" class="level2">
-<h2 class="anchored" data-anchor-id="payments">29) payments</h2>
-<p><strong>Purpose:</strong> Payment transactions for bookings.</p>
-<section id="fields-28" class="level3">
-<h3 class="anchored" data-anchor-id="fields-28">Fields</h3>
+<h2 class="anchored" data-anchor-id="payments">28) payments</h2>
+<p><strong>Purpose:</strong> Payment transactions for providers.</p>
+<section id="fields-27" class="level3">
+<h3 class="anchored" data-anchor-id="fields-27">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
-<li><code>booking_id</code> (UUID, FK → bookings.id)</li>
+<li><code>provider_id</code> (UUID, FK → providers.id)</li>
 <li><code>amount</code> (DECIMAL(10,2))</li>
 <li><code>currency</code> (VARCHAR(10))</li>
 <li><code>payment_method</code> (VARCHAR(50)) — CREDIT_CARD | PAYPAL | BANK_TRANSFER</li>
@@ -1476,47 +1410,20 @@ erDiagram
 <li><code>created_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-28" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-28">Relationships (why)</h3>
+<section id="relationships-why-27" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-27">Relationships (why)</h3>
 <ul>
-<li><code>bookings 1—1 payments</code> — Each booking has one payment</li>
+<li><code>providers 1—* payments</code> — Providers receive payments</li>
 <li>Tracks payment processing and status</li>
 </ul>
 <hr>
 </section>
 </section>
-<section id="verifications" class="level2">
-<h2 class="anchored" data-anchor-id="verifications">30) verifications</h2>
-<p><strong>Purpose:</strong> Verification system for providers including government license checks, manual admin review, and AI image validation. Verified providers receive a verification badge.</p>
-<section id="fields-29" class="level3">
-<h3 class="anchored" data-anchor-id="fields-29">Fields</h3>
-<ul>
-<li><code>id</code> (UUID, PK)</li>
-<li><code>user_id</code> (UUID, FK → users.id) — Typically for providers</li>
-<li><code>verification_type</code> (VARCHAR(50)) — BUSINESS_LICENSE | GOVERNMENT_LICENSE | IDENTITY | IMAGE_VALIDATION</li>
-<li><code>document_url</code> (TEXT, NULL)</li>
-<li><code>status</code> (VARCHAR(30)) — PENDING | VERIFIED | REJECTED</li>
-<li><code>verified_at</code> (TIMESTAMP, NULL)</li>
-<li><code>verified_by_admin_id</code> (UUID, FK → users.id, NULL) — Admin who verified</li>
-<li><code>created_at</code> (TIMESTAMP)</li>
-<li><code>updated_at</code> (TIMESTAMP)</li>
-</ul>
-</section>
-<section id="relationships-why-29" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-29">Relationships (why)</h3>
-<ul>
-<li><code>users 1—* verifications</code> — Providers can have multiple verification types</li>
-<li>Ensures platform security and trust</li>
-<li>Verification includes government license checks, manual admin review, and AI image validation</li>
-</ul>
-<hr>
-</section>
-</section>
 <section id="reports" class="level2">
-<h2 class="anchored" data-anchor-id="reports">31) reports</h2>
+<h2 class="anchored" data-anchor-id="reports">29) reports</h2>
 <p><strong>Purpose:</strong> Reporting system for users to report fake listings, scam providers, or misleading images. Admin receives alerts.</p>
-<section id="fields-30" class="level3">
-<h3 class="anchored" data-anchor-id="fields-30">Fields</h3>
+<section id="fields-28" class="level3">
+<h3 class="anchored" data-anchor-id="fields-28">Fields</h3>
 <ul>
 <li><code>id</code> (UUID, PK)</li>
 <li><code>reported_by_user_id</code> (UUID, FK → users.id)</li>
@@ -1529,8 +1436,8 @@ erDiagram
 <li><code>updated_at</code> (TIMESTAMP)</li>
 </ul>
 </section>
-<section id="relationships-why-30" class="level3">
-<h3 class="anchored" data-anchor-id="relationships-why-30">Relationships (why)</h3>
+<section id="relationships-why-28" class="level3">
+<h3 class="anchored" data-anchor-id="relationships-why-28">Relationships (why)</h3>
 <ul>
 <li><code>users 1—* reports</code> — Users can file reports</li>
 <li><code>listings 1—* reports</code> — Listings can be reported</li>
@@ -1548,10 +1455,10 @@ erDiagram
 <li><code>users 1—* tours</code> — Users book tours</li>
 <li><code>users 1—* reviews</code> — Users write reviews</li>
 <li><code>users 1—* favorites</code> — Users save favorite listings</li>
-<li><code>users 1—* verifications</code> — Users can be verified</li>
 <li><code>users 1—* reports</code> (as reporter and reported)</li>
 <li><code>providers 1—* listings</code> — Providers own multiple facilities</li>
 <li><code>providers 1—* subscriptions</code> — Providers have subscription plans</li>
+<li><code>providers 1—* payments</code> — Providers receive payments</li>
 <li><code>listings 1—* listing_images</code> — Listings have images</li>
 <li><code>listings *—* amenities</code> (through listing_amenities)</li>
 <li><code>listings *—* treatments_services</code> (through listing_services) — Treatments and care services</li>

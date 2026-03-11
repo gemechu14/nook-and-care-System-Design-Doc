@@ -338,7 +338,6 @@ LISTINGS ||--o{ LISTING_SAFETY_FEATURES : has
 LISTINGS ||--o{ LISTING_INSURANCE_OPTIONS : accepts
 LISTINGS ||--o{ HOUSE_RULES : has
 LISTINGS ||--o{ TOURS : offers
-LISTINGS ||--o{ BOOKINGS : receives
 LISTINGS ||--o{ REVIEWS : receives
 LISTINGS ||--o{ FAVORITES : in
 
@@ -352,10 +351,9 @@ DINING_OPTIONS ||--o{ LISTING_DINING_OPTIONS : used_in
 SAFETY_FEATURES ||--o{ LISTING_SAFETY_FEATURES : used_in
 INSURANCE_OPTIONS ||--o{ LISTING_INSURANCE_OPTIONS : used_in
 
-BOOKINGS ||--o{ PAYMENTS : requires
-BOOKINGS ||--o{ REVIEWS : generates
+TOURS ||--o{ REVIEWS : generates
+PROVIDERS ||--o{ PAYMENTS : receives
 
-USERS ||--o{ VERIFICATIONS : has
 USERS ||--o{ REPORTS : files
 ```
 
@@ -386,7 +384,6 @@ erDiagram
   LISTINGS ||--o{ LISTING_INSURANCE_OPTIONS : accepts
   LISTINGS ||--o{ HOUSE_RULES : has
   LISTINGS ||--o{ TOURS : offers
-  LISTINGS ||--o{ BOOKINGS : receives
   LISTINGS ||--o{ REVIEWS : receives
   LISTINGS ||--o{ FAVORITES : in
   AMENITIES ||--o{ LISTING_AMENITIES : used_in
@@ -398,9 +395,8 @@ erDiagram
   DINING_OPTIONS ||--o{ LISTING_DINING_OPTIONS : used_in
   SAFETY_FEATURES ||--o{ LISTING_SAFETY_FEATURES : used_in
   INSURANCE_OPTIONS ||--o{ LISTING_INSURANCE_OPTIONS : used_in
-  BOOKINGS ||--o{ PAYMENTS : requires
-  BOOKINGS ||--o{ REVIEWS : generates
-  USERS ||--o{ VERIFICATIONS : has
+  TOURS ||--o{ REVIEWS : generates
+  PROVIDERS ||--o{ PAYMENTS : receives
   USERS ||--o{ REPORTS : files
 
   USERS {
@@ -623,21 +619,9 @@ erDiagram
     datetime updated_at
   }
 
-  BOOKINGS {
-    uuid id PK
-    uuid listing_id FK
-    uuid user_id FK
-    date tour_date
-    string tour_type
-    string status
-    datetime created_at
-    datetime updated_at
-  }
-
-
   REVIEWS {
     uuid id PK
-    uuid booking_id FK
+    uuid tour_id FK
     uuid listing_id FK
     uuid user_id FK
     integer rating
@@ -669,7 +653,7 @@ erDiagram
 
   PAYMENTS {
     uuid id PK
-    uuid booking_id FK
+    uuid provider_id FK
     decimal amount
     string currency
     string payment_method
@@ -677,18 +661,6 @@ erDiagram
     string status
     datetime processed_at
     datetime created_at
-  }
-
-  VERIFICATIONS {
-    uuid id PK
-    uuid user_id FK
-    string verification_type
-    string document_url
-    string status
-    datetime verified_at
-    uuid verified_by_admin_id FK
-    datetime created_at
-    datetime updated_at
   }
 
   REPORTS {
@@ -731,7 +703,6 @@ erDiagram
 - `users 1—* tours` — Users book tours
 - `users 1—* reviews` — Users write reviews
 - `users 1—* favorites` — Users save favorite listings
-- `users 1—* verifications` — Users can be verified
 - `users 1—* reports` — Users can file reports
 
 This table is the foundation for authentication and user management.
@@ -1225,41 +1196,14 @@ This is the core entity representing available senior housing facilities. Listin
 
 ---
 
-## 25) bookings
-
-**Purpose:** Tour bookings made by families/seniors for facility tours.
-
-**Note:** This table may be merged with `tours` table or kept separate depending on implementation. The SRS mentions tour booking workflow, so this could represent tour bookings rather than accommodation bookings.
-
-### Fields
-
-- `id` (UUID, PK)
-- `listing_id` (UUID, FK → listings.id)
-- `user_id` (UUID, FK → users.id)
-- `tour_date` (DATE)
-- `tour_type` (VARCHAR(50)) — VIRTUAL | IN_PERSON
-- `status` (VARCHAR(30)) — PENDING | APPROVED | CONFIRMED | COMPLETED | CANCELLED
-- `created_at` (TIMESTAMP)
-- `updated_at` (TIMESTAMP)
-
-### Relationships (why)
-
-- `listings 1—* bookings` — Listings receive multiple tour bookings
-- `users 1—* bookings` — Users make multiple tour bookings
-- `bookings 1—* reviews` — Completed tours can generate reviews
-
-This represents tour bookings for senior housing facilities.
-
----
-
-## 26) reviews
+## 25) reviews
 
 **Purpose:** Reviews and ratings left by families/seniors after facility tours or placement.
 
 ### Fields
 
 - `id` (UUID, PK)
-- `booking_id` (UUID, FK → bookings.id, NULL) — Optional, if review is after tour
+- `tour_id` (UUID, FK → tours.id, NULL) — Optional, if review is after tour
 - `listing_id` (UUID, FK → listings.id)
 - `user_id` (UUID, FK → users.id)
 - `rating` (INTEGER) — 1 to 5
@@ -1272,12 +1216,13 @@ This represents tour bookings for senior housing facilities.
 
 - `listings 1—* reviews` — Listings accumulate reviews
 - `users 1—* reviews` — Users write multiple reviews
+- `tours 1—* reviews` — Completed tours can generate reviews
 - Providers can respond to reviews
 - Admin moderates reviews
 
 ---
 
-## 27) favorites
+## 26) favorites
 
 **Purpose:** Saved listings that users want to revisit.
 
@@ -1300,7 +1245,7 @@ This represents tour bookings for senior housing facilities.
 
 ---
 
-## 28) subscriptions
+## 27) subscriptions
 
 **Purpose:** Subscription plans for providers to publish listings. Plans include Free (limited listings), Pro (unlimited listings), and Premium (featured listings).
 
@@ -1325,14 +1270,14 @@ This represents tour bookings for senior housing facilities.
 
 ---
 
-## 29) payments
+## 28) payments
 
-**Purpose:** Payment transactions for bookings.
+**Purpose:** Payment transactions for providers.
 
 ### Fields
 
 - `id` (UUID, PK)
-- `booking_id` (UUID, FK → bookings.id)
+- `provider_id` (UUID, FK → providers.id)
 - `amount` (DECIMAL(10,2))
 - `currency` (VARCHAR(10))
 - `payment_method` (VARCHAR(50)) — CREDIT_CARD | PAYPAL | BANK_TRANSFER
@@ -1343,36 +1288,12 @@ This represents tour bookings for senior housing facilities.
 
 ### Relationships (why)
 
-- `bookings 1—1 payments` — Each booking has one payment
+- `providers 1—* payments` — Providers receive payments
 - Tracks payment processing and status
 
 ---
 
-## 30) verifications
-
-**Purpose:** Verification system for providers including government license checks, manual admin review, and AI image validation. Verified providers receive a verification badge.
-
-### Fields
-
-- `id` (UUID, PK)
-- `user_id` (UUID, FK → users.id) — Typically for providers
-- `verification_type` (VARCHAR(50)) — BUSINESS_LICENSE | GOVERNMENT_LICENSE | IDENTITY | IMAGE_VALIDATION
-- `document_url` (TEXT, NULL)
-- `status` (VARCHAR(30)) — PENDING | VERIFIED | REJECTED
-- `verified_at` (TIMESTAMP, NULL)
-- `verified_by_admin_id` (UUID, FK → users.id, NULL) — Admin who verified
-- `created_at` (TIMESTAMP)
-- `updated_at` (TIMESTAMP)
-
-### Relationships (why)
-
-- `users 1—* verifications` — Providers can have multiple verification types
-- Ensures platform security and trust
-- Verification includes government license checks, manual admin review, and AI image validation
-
----
-
-## 31) reports
+## 29) reports
 
 **Purpose:** Reporting system for users to report fake listings, scam providers, or misleading images. Admin receives alerts.
 
@@ -1403,10 +1324,10 @@ This represents tour bookings for senior housing facilities.
 - `users 1—* tours` — Users book tours
 - `users 1—* reviews` — Users write reviews
 - `users 1—* favorites` — Users save favorite listings
-- `users 1—* verifications` — Users can be verified
 - `users 1—* reports` (as reporter and reported)
 - `providers 1—* listings` — Providers own multiple facilities
 - `providers 1—* subscriptions` — Providers have subscription plans
+- `providers 1—* payments` — Providers receive payments
 - `listings 1—* listing_images` — Listings have images
 - `listings *—* amenities` (through listing_amenities)
 - `listings *—* treatments_services` (through listing_services) — Treatments and care services
