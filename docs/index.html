@@ -60,7 +60,6 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#industry-workflow" id="toc-industry-workflow" class="nav-link" data-scroll-target="#industry-workflow">Industry Workflow</a></li>
   <li><a href="#system-architecture" id="toc-system-architecture" class="nav-link" data-scroll-target="#system-architecture">System Architecture</a></li>
-  <li><a href="#entity-relationship-diagram" id="toc-entity-relationship-diagram" class="nav-link" data-scroll-target="#entity-relationship-diagram">Entity Relationship Diagram</a></li>
   <li><a href="#detailed-er-diagram-with-fields" id="toc-detailed-er-diagram-with-fields" class="nav-link" data-scroll-target="#detailed-er-diagram-with-fields">Detailed ER Diagram With Fields</a></li>
   <li><a href="#table-descriptions" id="toc-table-descriptions" class="nav-link" data-scroll-target="#table-descriptions">Table Descriptions</a>
   <ul class="collapse">
@@ -336,66 +335,6 @@ ul.task-list li input[type="checkbox"] {
 <li>Provider Verification</li>
 <li>Fraud Reporting</li>
 </ul>
-<hr>
-</section>
-<section id="entity-relationship-diagram" class="level1">
-<h1>Entity Relationship Diagram</h1>
-<p>This is the <strong>simple relationship view</strong> of the system.</p>
-<blockquote class="blockquote">
-<p><strong>Tip:</strong> Click the <strong>🔍 Fullscreen</strong> button on each diagram to view it in fullscreen mode for better visibility.</p>
-</blockquote>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">%%{init: {'theme':'base', 'themeVariables': {'fontSize':'48px', 'fontFamily':'Arial, sans-serif', 'primaryColor':'#ff6b6b', 'primaryTextColor':'#fff', 'primaryBorderColor':'#c92a2a', 'lineColor':'#495057', 'secondaryColor':'#4dabf7', 'tertiaryColor':'#51cf66', 'tertiaryTextColor':'#000', 'noteTextColor':'#000', 'noteBkgColor':'#fff', 'noteBorderColor':'#000', 'textColor':'#000'}, 'flowchart':{'nodeSpacing':60, 'rankSpacing':90}, 'er':{'entityPadding':18, 'fill':'#fff', 'stroke':'#495057', 'strokeWidth':2.5, 'fontSize':'48px'}}}%%
-erDiagram
-
-USERS ||--o{ PROVIDERS : can_be
-USERS ||--o{ TOURS : books
-USERS ||--o{ REVIEWS : writes
-USERS ||--o{ FAVORITES : has
-
-PROVIDERS ||--o{ LISTINGS : owns
-PROVIDERS ||--o{ SUBSCRIPTIONS : has
-
-LISTINGS ||--o{ LISTING_IMAGES : has
-LISTINGS ||--o{ LISTING_AMENITIES : has
-LISTINGS ||--o{ LISTING_SERVICES : has
-LISTINGS ||--o{ LISTING_EQUIPMENT : has
-LISTINGS ||--o{ LISTING_LANGUAGES : supports
-LISTINGS ||--o{ LISTING_CERTIFICATIONS : has
-LISTINGS ||--o{ LISTING_ACTIVITIES : offers
-LISTINGS ||--o{ LISTING_DINING_OPTIONS : provides
-LISTINGS ||--o{ LISTING_SAFETY_FEATURES : has
-LISTINGS ||--o{ LISTING_INSURANCE_OPTIONS : accepts
-LISTINGS ||--o{ HOUSE_RULES : has
-LISTINGS ||--o{ TOURS : offers
-LISTINGS ||--o{ REVIEWS : receives
-LISTINGS ||--o{ FAVORITES : in
-
-AMENITIES ||--o{ LISTING_AMENITIES : used_in
-TREATMENTS_SERVICES ||--o{ LISTING_SERVICES : used_in
-EQUIPMENT ||--o{ LISTING_EQUIPMENT : used_in
-LANGUAGES ||--o{ LISTING_LANGUAGES : used_in
-CERTIFICATIONS ||--o{ LISTING_CERTIFICATIONS : used_in
-ACTIVITIES ||--o{ LISTING_ACTIVITIES : used_in
-DINING_OPTIONS ||--o{ LISTING_DINING_OPTIONS : used_in
-SAFETY_FEATURES ||--o{ LISTING_SAFETY_FEATURES : used_in
-INSURANCE_OPTIONS ||--o{ LISTING_INSURANCE_OPTIONS : used_in
-
-TOURS ||--o{ REVIEWS : generates
-PROVIDERS ||--o{ PAYMENTS : receives
-
-USERS ||--o{ REPORTS : files
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<hr>
 </section>
 <section id="detailed-er-diagram-with-fields" class="level1">
 <h1>Detailed ER Diagram With Fields</h1>
